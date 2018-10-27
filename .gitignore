@@ -1,0 +1,39 @@
+# Global compiled file
+*.pyc
+
+# Auto generated conf
+egs/**/conf/*
+!egs/**/conf/dnn
+!egs/**/conf/logging_config.conf
+
+# Running part
+experiments/
+*data*
+
+# Tools
+SPTK*
+build/
+bin/
+#tools/
+
+# Pycharm IDE
+.idea/
+
+
+=*
+
+tools/COPYING
+tools/ChangeLog
+tools/HTS-2.3alpha_for_HTK-3.4.1.patch
+tools/HTS_Document.pdf
+tools/INSTALL
+tools/README
+tools/REAPER/
+tools/build_fest/
+tools/festival/
+tools/festvox/
+tools/htk/
+tools/magphase/
+tools/multisyn_build/
+tools/postfilter/
+tools/speech_tools/
