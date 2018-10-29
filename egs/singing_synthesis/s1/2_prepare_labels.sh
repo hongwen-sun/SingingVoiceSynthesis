@@ -34,8 +34,6 @@ echo "forced-alignment using HTK tools..."
 echo $wav_dir
 
 sed -i s#'HTKDIR =.*'#'HTKDIR = "'$HTKDir'"'# ${WorkDir}/local/forced_alignment.py
-sed -i s#'work_dir =.*'#'work_dir = "'$work_dir'"'# ${WorkDir}/local/forced_alignment.py
-sed -i s#'wav_dir =.*'#'wav_dir = "'$wav_dir'"'# ${WorkDir}/local/forced_alignment.py
 
 python ${WorkDir}/local/forced_alignment.py $work_dir $wav_dir
 

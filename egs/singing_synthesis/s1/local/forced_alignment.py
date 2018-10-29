@@ -26,13 +26,13 @@ HVite  = os.path.join(HTKDIR, 'HVite' )
 class ForcedAlignment(object):
 
     def __init__(self, work_dir):
-        self.work_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/label"
+        self.work_dir = work_dir
 
 
 
     def prepare_training(self, wav_dir):
         print('---preparing HMM training environment')
-        self.wav_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/wav"
+        self.wav_dir = wav_dir
         self.cfg_dir = os.path.join(work_dir, 'config')
         self.model_dir = os.path.join(work_dir, 'model')
         self.cur_dir = os.path.join(self.model_dir, 'hmm0')
@@ -47,20 +47,24 @@ class ForcedAlignment(object):
 
 
 
-        print('---make file_id_list.scp')
         self._make_file_id_list_scp()
 
-        print('---make copy.scp')
         self._make_copy_scp()
 
-        print('---mfcc extraction')
-        # self._mfcc_extraction()
+        self._mfcc_extraction()
 
-        print('---make proto')
         self._make_proto()
+
+    def train_hmm(self, niter, num_mix):
+        print('---training HMM models')
+        print('------stage 1: HInit')
+
+        print('------stage 2: HRest')
+        print('------stage 3: HERest')
 
     def _make_file_id_list_scp(self):
         self.file_id_list_scp = os.path.join(self.work_dir, 'file_id_list.scp')
+        print('---make file_id_list.scp: ' + self.file_id_list_scp)
         fid = open(self.file_id_list_scp, 'w')
         file_id_list = []
 
@@ -72,9 +76,19 @@ class ForcedAlignment(object):
         self.file_id_list = file_id_list
         fid.close()
 
+    def _make_scp(self, src, des, scp_name):
+        scp_path = os.path.join(des, scp_name)
+        print('---make copy.scp: ' + scp_path)
+        fid = open(scp_path, 'w')
+        for f in sorted(os.listdir(src)):
+            fid.write(f + '\n')
+
+        fid.close()
+
 
     def _make_copy_scp(self):
         self.copy_scp = os.path.join(self.cfg_dir, 'copy.scp')
+        print('---make copy.scp: ' + self.copy_scp)
         copy_scp = open(self.copy_scp, 'w')
         for file_id in self.file_id_list:
             wav_file = os.path.join(self.wav_dir, file_id + '.wav')
@@ -89,8 +103,9 @@ class ForcedAlignment(object):
         Compute MFCCs
         """
         # write a CFG for extracting MFCCs
+        print('---mfcc extraction at: ' + self.mfc_dir)
         self.copy_cfg = os.path.join(self.cfg_dir, 'copy.cfg')
-        print('------make copy.cfg')
+        print('------make copy.cfg: ' + self.copy_cfg)
         open(self.copy_cfg, 'w').write("""SOURCEKIND = WAVEFORM
 SOURCEFORMAT = WAVE
 TARGETRATE = 50000.0
@@ -118,7 +133,8 @@ NUMCEPS = 12
 """)
 
     def _make_proto(self):
-        self.proto = os.path.join(self.cfg_dir, 'proto')
+        self.proto = os.path.join(self.model_dir, 'proto')
+        print('---make proto: ' + self.proto)
         fid = open(self.proto, 'w')
         means = ' '.join(['0.0' for _ in range(39)])
         var = ' '.join(['1.0' for _ in range(39)])
@@ -147,8 +163,12 @@ NUMCEPS = 12
 
 if __name__ == '__main__':
 
-    work_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/label"
-    wav_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/wav"
+    # work_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/label"
+    # wav_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/wav"
+
+    work_dir = sys.argv[1]
+    wav_dir = sys.argv[2]
+
 
     # work_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/label"
 
