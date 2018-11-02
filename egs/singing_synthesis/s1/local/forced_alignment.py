@@ -27,13 +27,13 @@ HVite  = os.path.join(HTKDIR, 'HVite' )
 
 class ForcedAlignment(object):
 
-    def __init__(self, work_dir, NIT_dir):
+    def __init__(self, work_dir, NIT_dir, wav_dir, orig_label_dir):
         self.work_dir = work_dir
         self.NIT_dir = NIT_dir
+        self.wav_dir = wav_dir
+        self.orig_label_dir = orig_label_dir
 
-
-
-    def prepare_training(self, wav_dir):
+    def prepare_training(self):
         print('+++preparing HMM training environment')
         self._set_path_and_dir()
 
@@ -47,14 +47,42 @@ class ForcedAlignment(object):
 
         self._make_proto()
 
+        self._make_phoneme_map()
+
+        self._make_mono_no_align()
 
     def train_hmm(self, niter, num_mix):
         print('+++training HMM models')
         self._HInit_and_HRest()
         self._HERest(niter, num_mix)
 
+    # def align(self, lab_align_dir):
+    def align(self):
+        """
+        Align using the models in self.cur_dir and MLF to path
+        """
+        print('---aligning data')
+        print(time.strftime("%c"))
+
+        self.cur_dir = os.path.join(self.erest_dir, 'hmm_mix_32_iter_7')
+        # check_call([HVite, '-a', '-f', '-m', '-y', 'lab', '-o', 'SM',
+                    # '-i', self.align_res_mlf,
+                    # '-L', self.mono_no_align_dir,
+                    # '-C', self.cfg,
+                    # '-S', self.train_scp,
+                    # '-H', os.path.join(self.cur_dir, HMMDEFS),
+                    # '-I', self.mono_no_align_mlf, '-t'] + PRUNING +
+                   # ['-s', SFAC, self.phoneme_map, self.mono])
+
+        check_call([HVite, '-a', '-f', '-m', '-y', 'lab', '-o', 'SM',
+                    '-i', self.align_res_mlf, '-L', self.mono_no_align_dir,
+                    '-C', self.cfg, '-S', self.train_scp,
+                    '-H', os.path.join(self.cur_dir, HMMDEFS),
+                    '-I', self.mono_no_align_mlf, '-t'] + PRUNING +
+                   ['-s', SFAC, self.phoneme_map, self.mono])
+        # self._postprocess(self.align_res_mlf, lab_align_dir)
+
     def _set_path_and_dir(self):
-        self.wav_dir = wav_dir
         self.cfg_dir = os.path.join(work_dir, 'config')
         self.model_dir = os.path.join(work_dir, 'model')
         self.compv_dir = os.path.join(self.model_dir, 'HCompV')
@@ -62,6 +90,7 @@ class ForcedAlignment(object):
         self.rest_dir = os.path.join(self.model_dir, 'HRest')
         self.erest_dir = os.path.join(self.model_dir, 'HERest')
         self.mfc_dir = os.path.join(work_dir, 'mfc')
+        self.mono_no_align_dir = os.path.join(work_dir, 'mono_no_align')
         if not os.path.exists(self.cfg_dir):
             os.makedirs(self.cfg_dir)
         if not os.path.exists(self.compv_dir):
@@ -74,16 +103,21 @@ class ForcedAlignment(object):
             os.makedirs(self.erest_dir)
         if not os.path.exists(self.mfc_dir):
             os.makedirs(self.mfc_dir)
+        if not os.path.exists(self.mono_no_align_dir):
+            os.makedirs(self.mono_no_align_dir)
 
         self.file_id_list_scp = os.path.join(self.work_dir, 'file_id_list.scp')
         self.file_id_list = None
         self.copy_scp = os.path.join(self.cfg_dir, 'copy.scp')
-        self.cfg = os.path.join(self.cfg_dir, 'copy.cfg')
+        self.cfg = os.path.join(self.cfg_dir, 'cfg')
         self.train_scp = os.path.join(self.cfg_dir, 'train.scp')
         self.proto = os.path.join(self.model_dir, 'proto')
         self.avg_mmf = os.path.join(self.compv_dir, 'average.mmf')
         self.cur_dir = None
         self.mono = os.path.join(self.NIT_dir, 'monophone')
+        self.align_res_mlf = os.path.join(self.work_dir, 'mono_align.mlf')
+        self.phoneme_map = os.path.join(self.work_dir, 'phoneme_map.dict')
+        self.mono_no_align_mlf = os.path.join(self.cfg_dir, 'mono_no_align.mlf')
 
     def _make_file_id_list_scp(self):
         print('---make file_id_list.scp: ' + self.file_id_list_scp)
@@ -98,8 +132,6 @@ class ForcedAlignment(object):
         self.file_id_list = file_id_list
         fid.close()
 
-
-
     def _make_copy_scp(self):
         print('---make copy.scp: ' + self.copy_scp)
         copy_scp = open(self.copy_scp, 'w')
@@ -109,7 +141,6 @@ class ForcedAlignment(object):
             if os.path.exists(wav_file):
                 copy_scp.write('{0} {1}\n'.format(wav_file, mfc_file))
         copy_scp.close()
-
 
     def _mfcc_extraction(self):
         """
@@ -181,7 +212,6 @@ NUMCEPS = 12
 """)
         fid.close()
 
-
     def _make_hmmdefs(self):
         self.hmmdefs = os.path.join(self.model_dir, 'hmmdefs')
         print('---make hmmdefs: ' + self.hmmdefs)
@@ -192,9 +222,9 @@ NUMCEPS = 12
         hid.write(pid.readline())
         pid.readline() #remove "~h" line
         proto = pid.readlines()
-        for phone in mid.readlines():
-            phone = phone.strip()
-            hid.write('~h "{0}"\n'.format(phone))
+        for p in mid.readlines():
+            p = p.strip()
+            hid.write('~h "{0}"\n'.format(p))
             hid.writelines(proto)
         hid.write('\n')
 
@@ -278,36 +308,53 @@ NUMCEPS = 12
                 else:
                     done = 1
 
+    def _make_phoneme_map(self):
+        print('---make phoneme map: ' + self.phoneme_map)
+        pid = open(self.mono, 'r')
+        mid = open(self.phoneme_map, 'w')
+        for p in pid.readlines():
+            p = p.strip()
+            mid.write('{0} {1}\n'.format(p, p))
+        pid.close()
+        mid.close()
+
+    def _make_mono_no_align(self):
+        print('---make mono phoneme label file (without alignment) at: ' + self.mono_no_align_dir)
+        print('---make mono no align mlf file: ' + self.mono_no_align_mlf)
+        for file_id in self.file_id_list:
+            full_label = os.path.join(self.orig_label_dir, file_id + '.lab')
+            mono_label = os.path.join(self.mono_no_align_dir, file_id + '.lab')
+            fid = open(full_label, 'r')
+            mid = open(mono_label, 'w')
+            for line in fid.readlines():
+                line = line.strip()
+                if len(line) < 1:
+                    continue
+                temp_list = line.split('-')
+                temp_list = temp_list[1].split('+')
+                mono_phone = temp_list[0]
+                mid.write('{0}\n'.format(mono_phone))
+            fid.close()
+            mid.close()
+        fid = open(self.mono_no_align_mlf, 'w')
+        fid.write('#!MLF!#\n')
+        fid.write('"*/*.lab" -> "' + self.mono_no_align_dir + '"\n')
+        fid.close()
+
+
+
 
 
 if __name__ == '__main__':
 
-
-    # work_dir = sys.argv[1]
-    # wav_dir = sys.argv[2]
-    # NIT_dir = sys.argv[3]
     NIT_dir = sys.argv[1]
     wav_dir = os.path.join(NIT_dir, 'wav')
     work_dir = os.path.join(NIT_dir, 'label')
-
-
-    # work_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/label"
-
-    # wav_dir = "/home/yongliang/third_party/merlin/egs/singing_synthesis/s1/NIT/wav"
-    # lab_dir = os.path.join(work_dir, 'label_no_align')
+    orig_label_dir = os.path.join(NIT_dir, 'full')
     # lab_align_dir = os.path.join(work_dir, 'label_state_align')
 
-    # file_id_list_name = os.path.join(work_dir, 'file_id_list.scp')
-
-    ## if multiple_speaker is tuned on. the file_id_list.scp has to reflact this
-    ## for example
-    ## speaker_1/0001
-    ## speaker_2/0001
-    ## This is to do speaker-dependent normalisation
-
-    aligner = ForcedAlignment(work_dir, NIT_dir)
-    aligner.prepare_training(wav_dir)
-
+    aligner = ForcedAlignment(work_dir, NIT_dir, wav_dir, orig_label_dir)
+    aligner.prepare_training()
     aligner.train_hmm(7, 32)
-    # aligner.align(work_dir, lab_align_dir)
+    aligner.align()
     print('---done!')
