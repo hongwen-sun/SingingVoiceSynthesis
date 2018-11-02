@@ -208,18 +208,18 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
 
     logger.debug('Creating training   data provider')
     train_data_reader = ListDataProvider(x_file_list = train_x_file_list, y_file_list = train_y_file_list,
-                            n_ins = n_ins, n_outs = n_outs, buffer_size = buffer_size, 
+                            n_ins = n_ins, n_outs = n_outs, buffer_size = buffer_size,
                             sequential = sequential_training, shuffle = True)
 
     logger.debug('Creating validation data provider')
     valid_data_reader = ListDataProvider(x_file_list = valid_x_file_list, y_file_list = valid_y_file_list,
-                            n_ins = n_ins, n_outs = n_outs, buffer_size = buffer_size, 
+                            n_ins = n_ins, n_outs = n_outs, buffer_size = buffer_size,
                             sequential = sequential_training, shuffle = False)
 
     if cfg.rnn_batch_training:
         train_data_reader.set_rnn_params(training_algo=cfg.training_algo, batch_size=cfg.batch_size, seq_length=cfg.seq_length, merge_size=cfg.merge_size, bucket_range=cfg.bucket_range)
         valid_data_reader.reshape_input_output()
-    
+
     shared_train_set_xy, temp_train_set_x, temp_train_set_y = train_data_reader.load_one_partition()
     train_set_x, train_set_y = shared_train_set_xy
     shared_valid_set_xy, temp_valid_set_x, temp_valid_set_y = valid_data_reader.load_one_partition()
@@ -281,7 +281,7 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
                     dnn_model.params[i].set_value(old_val)
                 else:
                     sys.exit('old and new weight matrices have different shapes')
-                k = k + 1        
+                k = k + 1
     train_fn, valid_fn = dnn_model.build_finetune_functions(
                     (train_set_x, train_set_y), (valid_set_x, valid_set_y), use_lhuc, layer_index=cfg.freeze_layers)  #, batch_size=batch_size
     logger.info('fine-tuning the %s model' %(model_type))
@@ -304,9 +304,9 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
     epoch = 0
     while (epoch < training_epochs):
         epoch = epoch + 1
-        
+
         if lr_decay==0:
-            # fixed learning rate 
+            # fixed learning rate
             reduce_lr = False
         elif lr_decay<0:
             # exponential decay
@@ -327,7 +327,7 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
         else:
             current_finetune_lr = previous_finetune_lr
             current_momentum    = warmup_momentum
-        
+
         previous_finetune_lr = current_finetune_lr
 
         train_error = []
@@ -429,7 +429,7 @@ def dnn_generation(valid_file_list, nnets_file_name, n_ins, n_outs, out_file_lis
         features = features[:(n_ins * (features.size // n_ins))]
         test_set_x = features.reshape((-1, n_ins))
         n_rows = test_set_x.shape[0]
-        
+
         if reshape_io:
             test_set_x = numpy.reshape(test_set_x, (1, test_set_x.shape[0], n_ins))
             test_set_x = numpy.array(test_set_x, 'float32')
@@ -437,7 +437,7 @@ def dnn_generation(valid_file_list, nnets_file_name, n_ins, n_outs, out_file_lis
         predicted_parameter = dnn_model.parameter_prediction(test_set_x)
         predicted_parameter = predicted_parameter.reshape(-1, n_outs)
         predicted_parameter = predicted_parameter[0:n_rows]
-        
+
         ### write to cmp file
         predicted_parameter = numpy.array(predicted_parameter, 'float32')
         temp_parameter = predicted_parameter
@@ -704,7 +704,7 @@ def main_function(cfg):
             trim_silence(nn_cmp_file_list, nn_cmp_file_list, cfg.cmp_dim,
                                 binary_label_file_list, lab_dim, silence_feature)
 
-        elif cfg.remove_silence_using_hts_labels: 
+        elif cfg.remove_silence_using_hts_labels:
             ## back off to previous method using HTS labels:
             remover = SilenceRemover(n_cmp = cfg.cmp_dim, silence_pattern = cfg.silence_pattern, label_type=cfg.label_type, remove_frame_features = cfg.add_frame_features, subphone_feats = cfg.subphone_feats)
             remover.remove_silence(nn_cmp_file_list, in_label_align_file_list, nn_cmp_file_list) # save to itself
@@ -726,7 +726,7 @@ def main_function(cfg):
                 ###calculate mean and std vectors on the training data, and apply on the whole dataset
                 global_mean_vector = normaliser.compute_mean(nn_cmp_file_list[0:cfg.train_file_number], 0, cfg.cmp_dim)
                 global_std_vector = normaliser.compute_std(nn_cmp_file_list[0:cfg.train_file_number], global_mean_vector, 0, cfg.cmp_dim)
-                # for hmpd vocoder we don't need to normalize the 
+                # for hmpd vocoder we don't need to normalize the
                 # pdd values
                 if cfg.vocoder_type == 'hmpd':
                     stream_start_index = {}
@@ -739,7 +739,7 @@ def main_function(cfg):
                         else:
                             vuv_dimension = dimension_index
                             recorded_vuv = True
-                        
+
                         dimension_index += cfg.out_dimension_dict[feature_name]
                     logger.info('hmpd pdd values are not normalized since they are in 0 to 1')
                     global_mean_vector[:,stream_start_index['pdd']: stream_start_index['pdd'] + cfg.out_dimension_dict['pdd']] = 0
@@ -819,12 +819,12 @@ def main_function(cfg):
         if cfg.GenTestList and cfg.test_synth_dir!="None":
             cfg.inp_feat_dir  = cfg.test_synth_dir
             cfg.pred_feat_dir = cfg.test_synth_dir
-        
+
     if cfg.switch_to_keras:
         ### call kerasclass and use an instance ###
         from run_keras_with_merlin_io import KerasClass
         keras_instance = KerasClass(cfg)
-    
+
     elif cfg.switch_to_tensorflow:
         ### call Tensorflowclass and use an instance ###
         from run_tensorflow_with_merlin_io import TensorflowClass
@@ -1116,7 +1116,7 @@ def main_function(cfg):
                     ref_data_dir = os.path.join(data_dir, 'lf0')
             valid_f0_mse, valid_f0_corr, valid_vuv_error   = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.lf0_ext, cfg.lf0_dim)
             test_f0_mse , test_f0_corr, test_vuv_error    = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.lf0_ext, cfg.lf0_dim)
-      
+
         if 'mag' in cfg.in_dimension_dict:
             if cfg.remove_silence_using_hts_labels:
                 remover = SilenceRemover(n_cmp = cfg.mag_dim, silence_pattern = cfg.silence_pattern, label_type=cfg.label_type)
@@ -1125,7 +1125,7 @@ def main_function(cfg):
                 ref_data_dir = os.path.join(data_dir, 'feats')
             valid_mag_mse = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.mag_ext, cfg.mag_dim)
             test_mag_mse  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.mag_ext, cfg.mag_dim)
-            valid_mag_mse = 10.0*numpy.log10(valid_mag_mse)    
+            valid_mag_mse = 10.0*numpy.log10(valid_mag_mse)
             test_mag_mse  = 10.0*numpy.log10(test_mag_mse)
 
         if 'real' in cfg.in_dimension_dict:
@@ -1136,7 +1136,7 @@ def main_function(cfg):
                 ref_data_dir = os.path.join(data_dir, 'feats')
             valid_real_mse = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.real_ext, cfg.real_dim)
             test_real_mse = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.real_ext, cfg.real_dim)
-            valid_real_mse = 10.0*numpy.log10(valid_real_mse)    
+            valid_real_mse = 10.0*numpy.log10(valid_real_mse)
             test_real_mse  = 10.0*numpy.log10(test_real_mse)
 
         if 'imag' in cfg.in_dimension_dict:
@@ -1147,7 +1147,7 @@ def main_function(cfg):
                 ref_data_dir = os.path.join(data_dir, 'feats')
             valid_imag_mse = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.imag_ext, cfg.imag_dim)
             test_imag_mse  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.imag_ext, cfg.imag_dim)
-            valid_imag_mse = 10.0*numpy.log10(valid_imag_mse)    
+            valid_imag_mse = 10.0*numpy.log10(valid_imag_mse)
             test_imag_mse  = 10.0*numpy.log10(test_imag_mse)
 
         if 'lsf' in cfg.in_dimension_dict:
@@ -1160,7 +1160,7 @@ def main_function(cfg):
                 remover.remove_silence(in_file_list_dict['lsf'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number], in_gen_label_align_file_list, ref_lsf_list)
             valid_spectral_distortion = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.lsf_ext, cfg.lsf_dim)
             test_spectral_distortion  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.lsf_ext, cfg.lsf_dim)
-        
+
         if 'slsf' in cfg.in_dimension_dict:
             if cfg.remove_silence_using_binary_labels:
                 untrimmed_reference_data = in_file_list_dict['slsf'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number]
@@ -1171,7 +1171,7 @@ def main_function(cfg):
                 remover.remove_silence(in_file_list_dict['slsf'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number], in_gen_label_align_file_list, ref_slsf_list)
             valid_spectral_distortion = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.slsf_ext, cfg.slsf_dim)
             test_spectral_distortion  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.slsf_ext, cfg.slsf_dim)
-        
+
         if 'hnr' in cfg.in_dimension_dict:
             if cfg.remove_silence_using_binary_labels:
                 untrimmed_reference_data = in_file_list_dict['hnr'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number]
@@ -1182,7 +1182,7 @@ def main_function(cfg):
                 remover.remove_silence(in_file_list_dict['hnr'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number], in_gen_label_align_file_list, ref_hnr_list)
             valid_spectral_distortion = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.hnr_ext, cfg.hnr_dim)
             test_spectral_distortion  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.hnr_ext, cfg.hnr_dim)
-        
+
         if 'gain' in cfg.in_dimension_dict:
             if cfg.remove_silence_using_binary_labels:
                 untrimmed_reference_data = in_file_list_dict['gain'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number]
@@ -1193,7 +1193,7 @@ def main_function(cfg):
                 remover.remove_silence(in_file_list_dict['gain'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number], in_gen_label_align_file_list, ref_gain_list)
             valid_spectral_distortion = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.gain_ext, cfg.gain_dim)
             test_spectral_distortion  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.gain_ext, cfg.gain_dim)
-        
+
         if 'pdd' in cfg.in_dimension_dict:
             if cfg.remove_silence_using_binary_labels:
                 untrimmed_reference_data = in_file_list_dict['pdd'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number]
@@ -1204,7 +1204,7 @@ def main_function(cfg):
                 remover.remove_silence(in_file_list_dict['pdd'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number], in_gen_label_align_file_list, ref_pdd_list)
             valid_spectral_distortion = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.pdd_ext, cfg.pdd_dim)
             test_spectral_distortion  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.pdd_ext, cfg.pdd_dim)
-        
+
 
         if cfg.vocoder_type == 'MAGPHASE':
             logger.info('Develop: DNN -- MAG: %.3f dB; REAL: %.3f dB; IMAG: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
