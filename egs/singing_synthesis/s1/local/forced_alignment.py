@@ -51,6 +51,7 @@ class ForcedAlignment(object):
 
         self._make_mono_no_align()
 
+
     def train_hmm(self, niter, num_mix):
         print('+++training HMM models')
         self._HInit_and_HRest()
@@ -65,14 +66,6 @@ class ForcedAlignment(object):
         print(time.strftime("%c"))
 
         self.cur_dir = os.path.join(self.erest_dir, 'hmm_mix_32_iter_7')
-        # check_call([HVite, '-a', '-f', '-m', '-y', 'lab', '-o', 'SM',
-                    # '-i', self.align_res_mlf,
-                    # '-L', self.mono_no_align_dir,
-                    # '-C', self.cfg,
-                    # '-S', self.train_scp,
-                    # '-H', os.path.join(self.cur_dir, HMMDEFS),
-                    # '-I', self.mono_no_align_mlf, '-t'] + PRUNING +
-                   # ['-s', SFAC, self.phoneme_map, self.mono])
 
         check_call([HVite, '-a', '-f', '-m', '-y', 'lab', '-o', 'SM',
                     '-i', self.align_res_mlf, '-L', self.mono_no_align_dir,
@@ -80,6 +73,8 @@ class ForcedAlignment(object):
                     '-H', os.path.join(self.cur_dir, HMMDEFS),
                     '-I', self.mono_no_align_mlf, '-t'] + PRUNING +
                    ['-s', SFAC, self.phoneme_map, self.mono])
+
+        self._postprocess()
         # self._postprocess(self.align_res_mlf, lab_align_dir)
 
     def _set_path_and_dir(self):
@@ -91,6 +86,7 @@ class ForcedAlignment(object):
         self.erest_dir = os.path.join(self.model_dir, 'HERest')
         self.mfc_dir = os.path.join(work_dir, 'mfc')
         self.mono_no_align_dir = os.path.join(work_dir, 'mono_no_align')
+        self.label_state_align_dir = os.path.join(work_dir, 'label_state_align')
         if not os.path.exists(self.cfg_dir):
             os.makedirs(self.cfg_dir)
         if not os.path.exists(self.compv_dir):
@@ -105,6 +101,8 @@ class ForcedAlignment(object):
             os.makedirs(self.mfc_dir)
         if not os.path.exists(self.mono_no_align_dir):
             os.makedirs(self.mono_no_align_dir)
+        if not os.path.exists(self.label_state_align_dir):
+            os.makedirs(self.label_state_align_dir)
 
         self.file_id_list_scp = os.path.join(self.work_dir, 'file_id_list.scp')
         self.file_id_list = None
@@ -341,7 +339,35 @@ NUMCEPS = 12
         fid.write('"*/*.lab" -> "' + self.mono_no_align_dir + '"\n')
         fid.close()
 
+    def _postprocess(self):
+        state_num = STATE_NUM
+        mono_mlf = open(self.align_res_mlf, 'r')
+        mono_mlf.readline()
+        while True:
+            line = mono_mlf.readline()
+            line = line.strip()
+            if len(line) < 1:
+                break
+            line = line.replace('"', '')
+            file_base = os.path.basename(line)
+            orig_label = open(os.path.join(self.orig_label_dir, file_base), 'r')
+            aligned_label = open(os.path.join(self.label_state_align_dir, file_base), 'w')
+            for lab in orig_label.readlines():
+                lab = lab.strip().split()[2]
+                for i in range(state_num):
+                    line = mono_mlf.readline()
+                    line = line.strip()
+                    tmp_list = line.split()
+                    aligned_label.write('{0} {1} {2} [{3}]\n'.format(tmp_list[0], tmp_list[1], lab, i+2))
 
+            orig_label.close()
+            aligned_label.close()
+            line = mono_mlf.readline()
+            line= line.strip()
+            if line != '.':
+                print('The two files are not matched!\n')
+                sys.exit(1)
+        mono_mlf.close()
 
 
 
@@ -357,4 +383,3 @@ if __name__ == '__main__':
     aligner.prepare_training()
     aligner.train_hmm(7, 32)
     aligner.align()
-    print('---done!')
