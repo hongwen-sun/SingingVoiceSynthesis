@@ -27,11 +27,12 @@ HVite  = os.path.join(HTKDIR, 'HVite' )
 
 class ForcedAlignment(object):
 
-    def __init__(self, work_dir, NIT_dir, wav_dir, orig_label_dir):
+    def __init__(self, work_dir, NIT_dir, wav_dir, orig_label_dir, label_state_align_dir):
         self.work_dir = work_dir
         self.NIT_dir = NIT_dir
         self.wav_dir = wav_dir
         self.orig_label_dir = orig_label_dir
+        self.label_state_align_dir = label_state_align_dir
 
     def prepare_training(self):
         print('+++preparing HMM training environment')
@@ -67,7 +68,8 @@ class ForcedAlignment(object):
 
         self.cur_dir = os.path.join(self.erest_dir, 'hmm_mix_32_iter_7')
 
-        check_call([HVite, '-a', '-f', '-m', '-y', 'lab', '-o', 'SM',
+        check_call([HVite, '-A', '-D', '-T', str(1),
+                    '-a', '-f', '-m', '-y', 'lab', '-o', 'SM',
                     '-i', self.align_res_mlf, '-L', self.mono_no_align_dir,
                     '-C', self.cfg, '-S', self.train_scp,
                     '-H', os.path.join(self.cur_dir, HMMDEFS),
@@ -86,7 +88,6 @@ class ForcedAlignment(object):
         self.erest_dir = os.path.join(self.model_dir, 'HERest')
         self.mfc_dir = os.path.join(work_dir, 'mfc')
         self.mono_no_align_dir = os.path.join(work_dir, 'mono_no_align')
-        self.label_state_align_dir = os.path.join(work_dir, 'label_state_align')
         if not os.path.exists(self.cfg_dir):
             os.makedirs(self.cfg_dir)
         if not os.path.exists(self.compv_dir):
@@ -374,12 +375,12 @@ NUMCEPS = 12
 if __name__ == '__main__':
 
     NIT_dir = sys.argv[1]
+    label_state_align_dir = sys.argv[2]
     wav_dir = os.path.join(NIT_dir, 'wav')
     work_dir = os.path.join(NIT_dir, 'label')
     orig_label_dir = os.path.join(NIT_dir, 'full')
-    # lab_align_dir = os.path.join(work_dir, 'label_state_align')
 
-    aligner = ForcedAlignment(work_dir, NIT_dir, wav_dir, orig_label_dir)
+    aligner = ForcedAlignment(work_dir, NIT_dir, wav_dir, orig_label_dir, label_state_align_dir)
     aligner.prepare_training()
     aligner.train_hmm(7, 32)
     aligner.align()
