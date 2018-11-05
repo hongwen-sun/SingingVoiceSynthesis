@@ -359,7 +359,7 @@ NUMCEPS = 12
                     line = mono_mlf.readline()
                     line = line.strip()
                     tmp_list = line.split()
-                    aligned_label.write('{0} {1} {2} [{3}]\n'.format(tmp_list[0], tmp_list[1], lab, i+2))
+                    aligned_label.write('{0} {1} {2}[{3}]\n'.format(tmp_list[0], tmp_list[1], lab, i+2))
 
             orig_label.close()
             aligned_label.close()
@@ -382,5 +382,5 @@ if __name__ == '__main__':
 
     aligner = ForcedAlignment(work_dir, NIT_dir, wav_dir, orig_label_dir, label_state_align_dir)
     aligner.prepare_training()
-    aligner.train_hmm(7, 32)
+    # aligner.train_hmm(7, 32)
     aligner.align()
