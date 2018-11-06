@@ -17,7 +17,7 @@ mkdir -p ${experiments_dir}
 mkdir -p ${pitch_dir}
 mkdir -p ${acoustic_dir}
 mkdir -p ${duration_dir}
-
+mkdir -p ${synthesis_dir}
 
 global_config_file=conf/global_settings.cfg
 
@@ -30,8 +30,10 @@ echo "QuestionFile=questions-japanese-song.hed" >> $global_config_file
 echo "Vocoder=WORLD" >> $global_config_file
 echo "SamplingFreq=16000" >> $global_config_file
 
-echo "FileIDList=file_id_list_demo.scp" >> $global_config_file
-echo "Train=29" >> $global_config_file 
+echo "SilencePhone='pau'" >> $global_config_file
+
+echo "FileIDList=file_id_list.scp" >> $global_config_file
+echo "Train=27" >> $global_config_file 
 echo "Valid=1" >> $global_config_file 
 echo "Test=1" >> $global_config_file 
 
