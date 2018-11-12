@@ -46,6 +46,9 @@ from io_funcs.binary_io import  BinaryIOCollection
 import os, re, numpy
 import logging
 
+
+numpy.set_printoptions(threshold=numpy.nan, linewidth=numpy.nan)
+
 if FAST_MLPG:
     from .mlpg_fast import MLParameterGenerationFast as MLParameterGeneration
 #    pass
@@ -107,7 +110,6 @@ class   ParameterGeneration(object):
             logger.debug('wrote to file %s' % new_file_name)
 
     def acoustic_decomposition(self, in_file_list, dimension, out_dimension_dict, file_extension_dict, var_file_dict, do_MLPG=True, cfg=None):
-
         logger = logging.getLogger('param_generation')
 
         logger.debug('acoustic_decomposition for %d files' % len(in_file_list) )
@@ -119,7 +121,7 @@ class   ParameterGeneration(object):
         recorded_vuv = False
         vuv_dimension = None
 
-        for feature_name in list(out_dimension_dict.keys()):
+        for feature_name in sorted(out_dimension_dict.keys()):
 #            if feature_name != 'vuv':
             stream_start_index[feature_name] = dimension_index
 #            else:
@@ -142,7 +144,6 @@ class   ParameterGeneration(object):
             file_id = os.path.splitext(os.path.basename(file_name))[0]
 
             features, frame_number = io_funcs.load_binary_file_frame(file_name, dimension)
-
             logger.info('processing %4d of %4d: %s' % (findex,flen,file_name) )
 
             for feature_name in self.gen_wav_features:
@@ -165,6 +166,7 @@ class   ParameterGeneration(object):
 #                else:
 #                    self.logger.critical("the dimensions do not match for MLPG: %d vs %d" %(var.shape[1], out_dimension_dict[feature_name]))
 #                    raise
+
 
                 logger.debug(' feature dimensions: %d by %d' %(gen_features.shape[0], gen_features.shape[1]))
 
