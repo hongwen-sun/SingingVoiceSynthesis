@@ -1,11 +1,11 @@
 import sys, os
+import ast
 import re
 import numpy as np
 import pickle
 from subprocess import check_call
+from csv import DictReader
 from frontend.label_normalisation import HTSLabelNormalisation
-
-
 
 prep_lab_scp = './scripts/prepare_labels_from_txt.sh'
 
@@ -24,15 +24,32 @@ POS_PHO_BACKWARD = 6
 
 class ScoreAnalyzer():
 
-    def __init__(self, score):
-        self.score = score
+    def __init__(self, csv):
+        self.csv = csv
+        self.score = None
         self.lyric_lab_file = None
         self.words = None
         self.linguistic_feats = None
+        self.load_score()
+
+    def load_score(self):
+
+        with open(self.csv) as csv:
+            score = []
+            reader = DictReader(csv, delimiter='|', fieldnames=['word'], restkey='syllables', skipinitialspace=True)
+            for row in reader:
+                print(row)
+                notes = row['syllables']
+                striped_notes = []
+                [striped_notes.append(ast.literal_eval(n)) for n in notes]
+                row['syllables'] = striped_notes
+                score.append(row)
+            self.score = score
+
 
     def create_lyric_lab(self, out_dir=None):
         out_lyric_path = os.path.join(out_dir, 'lyric')
-        words = [i['word'] for i in self.score]
+        words = [i['word'].strip() for i in self.score]
         lyric = ' '.join(w for w in words)
         pid = open(out_lyric_path, 'w')
         pid.write('( lyric "{0}" )'.format(lyric))
