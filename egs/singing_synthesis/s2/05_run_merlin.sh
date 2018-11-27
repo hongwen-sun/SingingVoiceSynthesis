@@ -21,6 +21,9 @@ test_synth_config_file=$2
 ### Step 5: synthesize speech ###
 echo "Step 5:" 
 
+echo "prepare data for singing synthesis..."
+python ./local/music_score_analysis.py "score" ${WorkDir}/experiments/${Voice}/test_synthesis
+
 echo "synthesizing durations..."
 ./scripts/submit.sh ${MerlinDir}/src/run_merlin.py $test_dur_config_file
 
