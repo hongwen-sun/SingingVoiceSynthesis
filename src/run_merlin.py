@@ -69,6 +69,7 @@ from frontend.mean_variance_norm import MeanVarianceNorm
 from frontend.label_composer import LabelComposer
 from frontend.label_modifier import HTSLabelModification
 from frontend.merge_features import MergeFeat
+from frontend.score_analysis import ScoreAnalyzer
 
 import configuration
 from models.deep_rnn import DeepRecurrentNetwork
@@ -968,7 +969,14 @@ def main_function(cfg):
             ##perform MLPG to smooth parameter trajectory
             ## lf0 is included, the output features much have vuv.
             generator = ParameterGeneration(gen_wav_features = cfg.gen_wav_features, enforce_silence = cfg.enforce_silence)
-            generator.acoustic_decomposition(gen_file_list, cfg.cmp_dim, cfg.out_dimension_dict, cfg.file_extension_dict, var_file_dict, do_MLPG=cfg.do_MLPG, cfg=cfg)
+            if cfg.singing:
+                meta = pickle.load(open(os.path.join(cfg.singing_inter_data_dir, 'meta'), 'rb'))
+                generator.acoustic_decomposition(gen_file_list, cfg.cmp_dim, cfg.out_dimension_dict, cfg.file_extension_dict, var_file_dict, do_MLPG=cfg.do_MLPG, cfg=cfg, meta=meta)
+            else:
+                generator.acoustic_decomposition(gen_file_list, cfg.cmp_dim, cfg.out_dimension_dict, cfg.file_extension_dict, var_file_dict, do_MLPG=cfg.do_MLPG, cfg=cfg)
+
+
+
 
         if cfg.DurationModel:
             ### Perform duration normalization(min. state dur set to 1) ###
@@ -977,7 +985,12 @@ def main_function(cfg):
             in_gen_label_align_file_list = prepare_file_path_list(gen_file_id_list, cfg.in_label_align_dir, cfg.lab_ext, False)
 
             generator = ParameterGeneration(gen_wav_features = cfg.gen_wav_features)
-            generator.duration_decomposition(gen_file_list, cfg.cmp_dim, cfg.out_dimension_dict, cfg.file_extension_dict)
+            if cfg.singing:
+                meta = pickle.load(open(os.path.join(cfg.singing_inter_data_dir, 'meta'), 'rb'))
+                generator.duration_decomposition(gen_file_list, cfg.cmp_dim, cfg.out_dimension_dict, cfg.file_extension_dict, meta)
+            else:
+                generator.duration_decomposition(gen_file_list, cfg.cmp_dim, cfg.out_dimension_dict, cfg.file_extension_dict)
+
 
             label_modifier = HTSLabelModification(silence_pattern = cfg.silence_pattern, label_type = cfg.label_type)
             label_modifier.modify_duration_labels(in_gen_label_align_file_list, gen_dur_list, gen_label_list)
