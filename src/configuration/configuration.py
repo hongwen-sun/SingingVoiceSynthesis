@@ -130,6 +130,7 @@ class configuration(object):
 
         #work_dir must be provided before initialising other directories
         self.work_dir = None
+        self.top_dir = None
 
         if self.work_dir == None:
             try:
@@ -138,6 +139,15 @@ class configuration(object):
             except (configparser.NoSectionError, configparser.NoOptionError):
                 if self.work_dir == None:
                     logger.critical('Paths:work has no value!')
+                    raise Exception
+
+        if self.top_dir == None:
+            try:
+                self.top_dir = cfgparser.get('DEFAULT', 'TOPLEVEL')
+
+            except (configparser.NoSectionError, configparser.NoOptionError):
+                if self.top_dir == None:
+                    logger.critical('DEFAULT:TOPLEVEL has no value!')
                     raise Exception
 
         # look for those items that are user-configurable, and get their values
@@ -499,6 +509,10 @@ class configuration(object):
 
             ## joint dur
             ('dur_ext'   , '.dur'     , 'Extensions', 'dur_ext'),
+
+            ## singing
+            ('singing', False, 'Singing', 'singing'),
+            ('singing_inter_data_dir', 'test_synthesis/singing', 'Singing', 'singing_inter_data_dir'),
 
         ]
 
