@@ -1,0 +1,9 @@
+QS "C-Vowel"				{-aa+,-ae+,-ah+,-ao+,-aw+,-ax+,-axr+,-ay+,-eh+,-el+,-em+,-en+,-er+,-ey+,-ih+,-ix+,-iy+,-ow+,-oy+,-uh+,-uw+}
+
+CQS "C-Word_Num-Syls"	                            {+(\d+)@}
+CQS "Pos_C-Syl_in_C-Word(Fw)"	                    {@(\d+)-}
+CQS "Pos_C-Syl_in_C-Word(Bw)"	                    {-(\d+)&}
+
+CQS "C-Syl_Num-pho"                                 {-(\d+)@}
+CQS "Pos_C-Pho_in_C-Syl(Fw)"                        {@(\d+)_}
+CQS "Pos_C-Pho_in_C-Syl(Bw)"                        {_(\d+)/A:}
