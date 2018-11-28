@@ -47,7 +47,16 @@ import os, re, numpy
 import logging
 
 
+
+import sys
+print(sys.path)
+sys.path.insert(0, '/home/yongliang/third_party/merlin')
+
+from egs.slt_arctic.s1.synthesize import ScoreAnalyzer
+
+
 numpy.set_printoptions(threshold=numpy.nan, linewidth=numpy.nan)
+
 
 if FAST_MLPG:
     from .mlpg_fast import MLParameterGenerationFast as MLParameterGeneration
@@ -69,8 +78,42 @@ class   ParameterGeneration(object):
         # self.logger = logging.getLogger('param_generation')
 
         self.var = {}
+        self.syl_meta = None
 
-    def duration_decomposition(self, in_file_list, dimension, out_dimension_dict, file_extension_dict):
+    def load_syllable_metadata(self, meta):
+        self.syl_meta = meta
+
+    def hardcode_duration(self, meta, gen_features):
+        assert meta[-1]['end_ind'] + 1 == gen_features.shape[0]
+        for syllable in meta:
+            new_len = sum([n[1] for n in syllable['notes']])
+            old_len = gen_features[syllable['start_ind']: syllable['end_ind']+1, :].sum()
+            old_vowel_len = gen_features[syllable['vowel_ind']].sum()
+            new_vowel_len = old_vowel_len + new_len - old_len
+            # print('current syllable: ')
+            # print(gen_features[syllable['start_ind']: syllable['end_ind']+1, :])
+            # print('vowel of current syllable: ')
+            # print(gen_features[syllable['vowel_ind']])
+            # print('WHAT IS THE PROBLEM !!!!!!!!!!!!!!!!!!!!!!!!')
+            # print(type(gen_features[0][0]))
+            # print(type(float(new_vowel_len)/old_vowel_len))
+            gen_features[syllable['vowel_ind']] = gen_features[syllable['vowel_ind']] * float(new_vowel_len)/old_vowel_len
+            # print(gen_features)
+            deviation = new_len - gen_features[syllable['start_ind']: syllable['end_ind']+1, :].sum()
+            # print('deviation is: ', str(deviation))
+            for i in range(deviation):
+                gen_features[syllable['vowel_ind']][i] += 1
+            assert new_len == gen_features[syllable['start_ind']: syllable['end_ind']+1, :].sum()
+            # print(gen_features)
+            # print('deviation NOW is: ', str(deviation))
+            # print(type(gen_features[0][0]))
+            # print('WHAT IS THE PROBLEM !!!!!!!!!!!!!!!!!!!!!!!!')
+            # print('vowel after expansion:')
+            # print(gen_features[syllable['vowel_ind']])
+        return gen_features
+
+
+    def duration_decomposition(self, in_file_list, dimension, out_dimension_dict, file_extension_dict, meta=None):
 
         logger = logging.getLogger('param_generation')
 
@@ -104,12 +147,22 @@ class   ParameterGeneration(object):
 
             logger.info('processing %4d of %4d: %s' % (findex,flen,file_name) )
 
+
+            if meta is not None:
+                gen_features = self.hardcode_duration(meta, gen_features)
+
+            print('* ^ % ' * 20)
+            print(gen_features)
+            print('* ^ % ' * 20)
+
+
+
             new_file_name = os.path.join(dir_name, file_id + file_extension_dict[feature_name])
             io_funcs.array_to_binary_file(gen_features, new_file_name)
 
             logger.debug('wrote to file %s' % new_file_name)
 
-    def acoustic_decomposition(self, in_file_list, dimension, out_dimension_dict, file_extension_dict, var_file_dict, do_MLPG=True, cfg=None):
+    def acoustic_decomposition(self, in_file_list, dimension, out_dimension_dict, file_extension_dict, var_file_dict, do_MLPG=True, cfg=None, meta=None):
         logger = logging.getLogger('param_generation')
 
         logger.debug('acoustic_decomposition for %d files' % len(in_file_list) )
@@ -158,6 +211,28 @@ class   ParameterGeneration(object):
                 else:
                     var = self.var[feature_name]
 
+
+
+                if feature_name == 'lf0' and meta is not None:
+                    cur_ind = 60
+                    for syllable in meta:
+                        # fn = dur_feat[syllable['start_ind']: syllable['end_ind']+1, :].sum()
+                        # orig_frame_number = sum(n[1] for n in syllable['notes'])
+                        # if fn != orig_frame_number:
+                        #     syllable['notes'][-1][1] -= orig_frame_number - fn
+                        # assert sum(n[1] for n in syllable['notes']) == fn
+                        # print(syllable)
+                        for note in syllable['notes']:
+                            print(type(int(note[1])))
+                            current_features[int(cur_ind): int(cur_ind)+int(note[1]), 0] = note[0]
+                            cur_ind += note[1]
+
+                        print('&' * 30)
+                        print(current_features)
+                        print(current_features.shape)
+                        print(feature_name)
+                        print('&' * 30)
+
 #                print  var.shape[1]
                 if do_MLPG == False:
                     gen_features = current_features
@@ -193,6 +268,7 @@ class   ParameterGeneration(object):
                         start_time = int(int(temp_list[0])*(10**-4)/5)
                         end_time   = int(int(temp_list[1])*(10**-4)/5)
 
+
                         full_label = temp_list[2]
 
                         label_binary_flag = self.check_silence_pattern(full_label, silence_pattern)
@@ -203,6 +279,11 @@ class   ParameterGeneration(object):
                             else:
                                 gen_features[start_time:end_time, :] = 0.0
 
+                print('+=' * 15)
+                print('frame numbers: acoustic')
+                # print(gen_features)
+                # print(len(gen_features))
+                print('+=' * 15)
                 io_funcs.array_to_binary_file(gen_features, new_file_name)
                 logger.debug(' wrote to file %s' % new_file_name)
 
