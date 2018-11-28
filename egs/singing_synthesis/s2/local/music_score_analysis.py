@@ -20,13 +20,16 @@ if __name__ == '__main__':
         else:
             raise
 
+    if not os.path.exists(singing_inter_data_dir):
+        os.makedirs(singing_inter_data_dir)
+
     # score = [{'word': 'you', 'syllables': [[[5.1, 100]]]},
     #          {'word': 'are', 'syllables': [[[5.2, 100]]]},
     #          {'word': 'beautiful', 'syllables': [  [[5.4, 100]], [[5.2, 100]], [[5.1, 100], [5.5, 300]]  ]}]
 
 
 
-        analyzer = ScoreAnalyzer(score)
-        analyzer.create_lyric_lab(out_dir)
-        analyzer.extract_ling_feats()
-        analyzer.create_metadata(os.path.join(singing_inter_data_dir, 'meta'))
+    analyzer = ScoreAnalyzer(score)
+    analyzer.create_lyric_lab(out_dir)
+    analyzer.extract_ling_feats()
+    analyzer.create_metadata(os.path.join(singing_inter_data_dir, 'meta'))

@@ -25,7 +25,7 @@ echo "prepare data for singing synthesis..."
 python ./local/music_score_analysis.py "score" ${WorkDir}/experiments/${Voice}/test_synthesis
 
 echo "synthesizing durations..."
-./scripts/submit.sh ${MerlinDir}/src/run_merlin.py $test_dur_config_file
+#./scripts/submit.sh ${MerlinDir}/src/run_merlin.py $test_dur_config_file
 
 echo "synthesizing speech..."
 ./scripts/submit.sh ${MerlinDir}/src/run_merlin.py $test_synth_config_file

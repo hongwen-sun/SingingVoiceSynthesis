@@ -5,7 +5,7 @@
 glob_conf=$1
 test_dir=$2
 
-. $glob_conf
+. conf/global_settings.cfg
 
 ### tools required
 FESTDIR=${MerlinDir}/tools/build_fest/build/festival
