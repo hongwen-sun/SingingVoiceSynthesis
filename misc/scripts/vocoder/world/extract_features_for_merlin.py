@@ -133,7 +133,7 @@ def reaper_f0_extract(in_wavfile, f0_file_ref, f0_file_out, frame_shift_ms=5.0):
 
     # Run REAPER:
     print("Running REAPER f0 extraction...")
-    cmd = "%s -a -s -x 400 -m 50 -u %1.4f -i %s -f %s" % (os.path.join(reaper, 'reaper'), frame_shift_ms / 1000.0, in_wavfile, f0_file_out + "_reaper")
+    cmd = "%s -a -s -x 650 -m 50 -u %1.4f -i %s -f %s" % (os.path.join(reaper, 'reaper'), frame_shift_ms / 1000.0, in_wavfile, f0_file_out + "_reaper")
     os.system(cmd)
 
     # Protection - number of frames:
@@ -227,7 +227,7 @@ shutil.rmtree(f0_dir, ignore_errors=True)
 for zippath in glob.iglob(os.path.join(bap_dir, '*.bapd')):
     os.remove(zippath)
 
-print("You should have your features ready in: "+out_dir)    
+print("You should have your features ready in: "+out_dir)
 
 (m, s) = divmod(int(time.time() - start_time), 60)
 print(("--- Feature extraction completion time: %d min. %d sec ---" % (m, s)))
