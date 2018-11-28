@@ -22,27 +22,72 @@ NUM_PHO = 4
 POS_PHO_FORWARD = 5
 POS_PHO_BACKWARD = 6
 
+n2f_csv = './note_to_lf0.csv'
+FS = 16000
+WS = 100
+BPM = 140
+BPS = BPM/60
+
 class ScoreAnalyzer():
 
-    def __init__(self, csv):
-        self.csv = csv
+    def __init__(self, score_csv):
+        self.score_csv = score_csv
         self.score = None
+        self.note_fmap = None
+        self.note_dmap = None
         self.lyric_lab_file = None
         self.words = None
         self.linguistic_feats = None
+        self.init_dmap_dic()
+        self.load_fmap_csv()
         self.load_score()
+
+    def init_dmap_dic(self):
+        map = {}
+        map[1] = int(FS/BPS/WS*4)
+        map[2] = int(FS/BPS/WS*2)
+        map[4] = int(FS/BPS/WS/1)
+        map[8] = int(FS/BPS/WS/2)
+        map[16]= int(FS/BPS/WS/4)
+        # map[1] = 100
+        # map[2] = 100
+        # map[4] = 100
+        # map[8] = 100
+        # map[16]= 100
+        self.note_dmap = map
+
+    def load_fmap_csv(self):
+        with open(n2f_csv) as csvfile:
+            self.note_fmap = {}
+            reader = DictReader(csvfile, fieldnames=['note', 'lf0'])
+            for row in reader:
+                self.note_fmap[row['note']] = float(row['lf0'])
 
     def load_score(self):
 
-        with open(self.csv) as csv:
+        with open(self.score_csv) as csvfile:
             score = []
-            reader = DictReader(csv, delimiter='|', fieldnames=['word'], restkey='syllables', skipinitialspace=True)
+            reader = DictReader(csvfile, delimiter='|', fieldnames=['word'], restkey='syllables', skipinitialspace=True)
             for row in reader:
-                print(row)
-                notes = row['syllables']
-                striped_notes = []
-                [striped_notes.append(ast.literal_eval(n)) for n in notes]
-                row['syllables'] = striped_notes
+                # print(row)
+                syls_i = row['syllables']
+                # striped_notes = []
+                # [striped_notes.append(ast.literal_eval(s)) for s in syllables]
+                # print('*' * 20)
+                # print(striped_notes)
+                # print('*' * 20)
+                syls_o = []
+                for s in syls_i:
+                    # print(s)
+                    syl = []
+                    for n in ast.literal_eval(s):
+                        # print(n[0])
+                        lf0 = self.note_fmap[n[0]]
+                        syl.append([lf0, self.note_dmap[n[1]]])
+                        print('notes: ')
+                        print(syl)
+                    syls_o.append(syl)
+                row['syllables'] = syls_o
                 score.append(row)
             self.score = score
 
@@ -105,8 +150,12 @@ class ScoreAnalyzer():
                                                len(self.score[cur_word_ind]['syllables'])))
                 cur_word_ind += 1
 
+        print('*' * 200)
+        print(syllabels_meta)
         if out_meta_file:
             with open(out_meta_file, 'wb') as f:
+                print(out_meta_file)
+                print('INININININININININ')
                 pickle.dump(syllabels_meta, f)
         else:
             return syllabels_meta
