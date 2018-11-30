@@ -52,7 +52,6 @@ import sys
 print(sys.path)
 sys.path.insert(0, '/home/yongliang/third_party/merlin')
 
-from egs.slt_arctic.s1.synthesize import ScoreAnalyzer
 
 
 numpy.set_printoptions(threshold=numpy.nan, linewidth=numpy.nan)
@@ -90,26 +89,11 @@ class   ParameterGeneration(object):
             old_len = gen_features[syllable['start_ind']: syllable['end_ind']+1, :].sum()
             old_vowel_len = gen_features[syllable['vowel_ind']].sum()
             new_vowel_len = old_vowel_len + new_len - old_len
-            # print('current syllable: ')
-            # print(gen_features[syllable['start_ind']: syllable['end_ind']+1, :])
-            # print('vowel of current syllable: ')
-            # print(gen_features[syllable['vowel_ind']])
-            # print('WHAT IS THE PROBLEM !!!!!!!!!!!!!!!!!!!!!!!!')
-            # print(type(gen_features[0][0]))
-            # print(type(float(new_vowel_len)/old_vowel_len))
             gen_features[syllable['vowel_ind']] = gen_features[syllable['vowel_ind']] * float(new_vowel_len)/old_vowel_len
-            # print(gen_features)
             deviation = new_len - gen_features[syllable['start_ind']: syllable['end_ind']+1, :].sum()
-            # print('deviation is: ', str(deviation))
             for i in range(deviation):
                 gen_features[syllable['vowel_ind']][i] += 1
             assert new_len == gen_features[syllable['start_ind']: syllable['end_ind']+1, :].sum()
-            # print(gen_features)
-            # print('deviation NOW is: ', str(deviation))
-            # print(type(gen_features[0][0]))
-            # print('WHAT IS THE PROBLEM !!!!!!!!!!!!!!!!!!!!!!!!')
-            # print('vowel after expansion:')
-            # print(gen_features[syllable['vowel_ind']])
         return gen_features
 
 
@@ -150,11 +134,6 @@ class   ParameterGeneration(object):
 
             if meta is not None:
                 gen_features = self.hardcode_duration(meta, gen_features)
-
-            print('* ^ % ' * 20)
-            print(gen_features)
-            print('* ^ % ' * 20)
-
 
 
             new_file_name = os.path.join(dir_name, file_id + file_extension_dict[feature_name])
@@ -227,11 +206,6 @@ class   ParameterGeneration(object):
                             current_features[int(cur_ind): int(cur_ind)+int(note[1]), 0] = note[0]
                             cur_ind += note[1]
 
-                        print('&' * 30)
-                        print(current_features)
-                        print(current_features.shape)
-                        print(feature_name)
-                        print('&' * 30)
 
 #                print  var.shape[1]
                 if do_MLPG == False:
@@ -279,11 +253,6 @@ class   ParameterGeneration(object):
                             else:
                                 gen_features[start_time:end_time, :] = 0.0
 
-                print('+=' * 15)
-                print('frame numbers: acoustic')
-                # print(gen_features)
-                # print(len(gen_features))
-                print('+=' * 15)
                 io_funcs.array_to_binary_file(gen_features, new_file_name)
                 logger.debug(' wrote to file %s' % new_file_name)
 
