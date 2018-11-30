@@ -30,6 +30,7 @@ tools/INSTALL
 tools/README
 tools/REAPER/
 tools/build_fest/
+!tools/build_fest/fest_build
 tools/festival/
 tools/festvox/
 tools/htk/
@@ -37,3 +38,5 @@ tools/magphase/
 tools/multisyn_build/
 tools/postfilter/
 tools/speech_tools/
+
+NIT/
