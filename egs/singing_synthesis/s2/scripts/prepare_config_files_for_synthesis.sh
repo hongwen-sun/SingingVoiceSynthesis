@@ -1,16 +1,14 @@
 #!/bin/bash
 
-if test "$#" -ne 1; then
-    echo "Usage: ./scripts/prepare_config_files_for_synthesis.sh conf/global_settings.cfg"
-    exit 1
-fi
-
 if [ ! -f $1 ]; then
     echo "Global config file doesn't exist"
     exit 1
 else
     source $1
 fi
+
+architecture=$2
+synth_type=$3
 
 SED=sed
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -67,13 +65,36 @@ $SED -i s#'test_synth_dir\s*:.*'#'test_synth_dir: %(TOPLEVEL)s/experiments/'${Vo
 
 
 # [Architecture]
-if [ "$Voice" == "slt_arctic_demo" ]
+$SED -i s#'switch_to_keras:.*'#'switch_to_keras: True'# $duration_config_file
+if [ "$architecture" == "RNN" ]
 then
-    $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $duration_config_file
-    $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $duration_config_file
+    $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['RNN']'# $duration_config_file
+    $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
+    $SED -i s#'model_file_name:.*'#'model_file_name: rnn_1'# $duration_config_file
+elif [ "$architecture" == "GRU" ]
+then
+    $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['GRU']'# $duration_config_file
+    $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
+    $SED -i s#'model_file_name:.*'#'model_file_name: gru_1'# $duration_config_file
+elif [ "$architecture" == "LSTM" ]
+then
+    $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['LSTM']'# $duration_config_file
+    $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
+    $SED -i s#'model_file_name:.*'#'model_file_name: lstm_1'# $duration_config_file
+elif [ "$architecture" == "DNN" ]
+then
+    if [ "$Voice" == "slt_arctic_demo" ]
+    then
+        $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $duration_config_file
+        $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $duration_config_file
+        $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $duration_config_file
+    fi
+else
+    echo "The architecture ($architecture) are not supported as of now...please use DNN, RNN, GRU or LSTM!!"
 fi
-
 
 # [Data]
 $SED -i s#'train_file_number\s*:.*'#'train_file_number: '${Train}# $duration_config_file
@@ -95,6 +116,14 @@ $SED -i s#'TRAINDNN\s*:.*'#'TRAINDNN: False'# $duration_config_file
 $SED -i s#'CALMCD\s*:.*'#'CALMCD: False'# $duration_config_file
 
 $SED -i s#'DNNGEN\s*:.*'#'DNNGEN: True'# $duration_config_file
+
+# [Singing]
+if [ "$synth_type" == "singing" ]
+then
+    echo "[Singing]" >> $duration_config_file
+    echo "singing: True" >> $duration_config_file
+    echo "singing_inter_data_dir: ${WorkDir}/experiments/${Voice}/test_synthesis/singing" >> $duration_config_file
+fi
 
 echo "Duration configuration settings stored in $duration_config_file"
 
@@ -195,13 +224,36 @@ fi
 
 
 # [Architecture]
-if [ "$Voice" == "slt_arctic_demo" ]
+$SED -i s#'switch_to_keras:.*'#'switch_to_keras: True'# $acoustic_config_file
+if [ "$architecture" == "RNN" ]
 then
-    $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $acoustic_config_file
-    $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $acoustic_config_file
+    $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['RNN']'# $acoustic_config_file
+    $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
+    $SED -i s#'model_file_name:.*'#'model_file_name: rnn_1'# $acoustic_config_file
+elif [ "$architecture" == "GRU" ]
+then
+    $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['GRU']'# $acoustic_config_file
+    $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
+    $SED -i s#'model_file_name:.*'#'model_file_name: gru_1'# $acoustic_config_file
+elif [ "$architecture" == "LSTM" ]
+then
+    $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['LSTM']'# $acoustic_config_file
+    $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
+    $SED -i s#'model_file_name:.*'#'model_file_name: lstm_1'# $acoustic_config_file
+elif [ "$architecture" == "DNN" ]
+then
+    if [ "$Voice" == "slt_arctic_demo" ]
+    then
+        $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $acoustic_config_file
+        $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $acoustic_config_file
+        $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $acoustic_config_file
+    fi
+else
+    echo "The architecture ($architecture) are not supported as of now...please use DNN, RNN, GRU or LSTM!!"
 fi
-
 
 # [Data]
 $SED -i s#'train_file_number\s*:.*'#'train_file_number: '${Train}# $acoustic_config_file
@@ -219,5 +271,13 @@ $SED -i s#'NORMCMP\s*:.*'#'NORMCMP: False'# $acoustic_config_file
 $SED -i s#'TRAINDNN\s*:.*'#'TRAINDNN: False'# $acoustic_config_file
 $SED -i s#'CALMCD\s*:.*'#'CALMCD: False'# $acoustic_config_file
 
+
+# [Singing]
+if [ "$synth_type" == "singing" ]
+then
+    echo "[Singing]" >> $acoustic_config_file
+    echo "singing: True" >> $acoustic_config_file
+    echo "singing_inter_data_dir: ${WorkDir}/experiments/${Voice}/test_synthesis/singing" >> $acoustic_config_file
+fi
 
 echo "Acoustic configuration settings stored in $acoustic_config_file"
