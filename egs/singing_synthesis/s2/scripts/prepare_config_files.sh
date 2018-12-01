@@ -36,6 +36,9 @@ $SED -i s#'work:.*'#'work: %(TOPLEVEL)s/experiments/'${Voice}'/duration_model'# 
 
 $SED -i s#'file_id_list:.*'#'file_id_list: %(data)s/'${FileIDList}# $duration_config_file
 
+$SED -i s#'batch_size\s*:.*'#'batch_size: 64'# $duration_config_file
+$SED -i s#'buffer_size\s*:.*'#'buffer_size: 20000'# $duration_config_file
+
 # [Labels]
 $SED -i s#'label_type:.*'#'label_type: '${Labels}# $duration_config_file
 $SED -i s#'label_align:.*'#'label_align: %(TOPLEVEL)s/experiments/'${Voice}'/duration_model/data/label_'${Labels}# $duration_config_file
@@ -60,19 +63,19 @@ $SED -i s#'switch_to_keras:.*'#'switch_to_keras: True'# $duration_config_file
 if [ "$architecture" == "RNN" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['RNN']'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''RNN'\'']'# $duration_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: rnn_1'# $duration_config_file
 elif [ "$architecture" == "GRU" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['GRU']'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''GRU'\'']'# $duration_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: gru_1'# $duration_config_file
 elif [ "$architecture" == "LSTM" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['LSTM']'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''LSTM'\'']'# $duration_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: lstm_1'# $duration_config_file
 elif [ "$architecture" == "DNN" ]
@@ -115,6 +118,9 @@ $SED -i s#'TOPLEVEL:.*'#'TOPLEVEL: '${WorkDir}# $acoustic_config_file
 $SED -i s#'work:.*'#'work: %(TOPLEVEL)s/experiments/'${Voice}'/acoustic_model'# $acoustic_config_file
 
 $SED -i s#'file_id_list:.*'#'file_id_list: %(data)s/'${FileIDList}# $acoustic_config_file
+
+$SED -i s#'batch_size\s*:.*'#'batch_size: 64'# $acoustic_config_file
+$SED -i s#'buffer_size\s*:.*'#'buffer_size: 20000'# $acoustic_config_file
 
 
 # [Labels]
@@ -193,19 +199,19 @@ $SED -i s#'switch_to_keras:.*'#'switch_to_keras: True'# $acoustic_config_file
 if [ "$architecture" == "RNN" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['RNN']'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''RNN'\'']'# $acoustic_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: rnn_1'# $acoustic_config_file
 elif [ "$architecture" == "GRU" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['GRU']'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''GRU'\'']'# $acoustic_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: gru_1'# $acoustic_config_file
 elif [ "$architecture" == "LSTM" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['LSTM']'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''LSTM'\'']'# $acoustic_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: lstm_1'# $acoustic_config_file
 elif [ "$architecture" == "DNN" ]

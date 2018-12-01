@@ -69,19 +69,19 @@ $SED -i s#'switch_to_keras:.*'#'switch_to_keras: True'# $duration_config_file
 if [ "$architecture" == "RNN" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['RNN']'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''RNN'\'']'# $duration_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: rnn_1'# $duration_config_file
 elif [ "$architecture" == "GRU" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['GRU']'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''GRU'\'']'# $duration_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: gru_1'# $duration_config_file
 elif [ "$architecture" == "LSTM" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $duration_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['LSTM']'# $duration_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''LSTM'\'']'# $duration_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $duration_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: lstm_1'# $duration_config_file
 elif [ "$architecture" == "DNN" ]
@@ -228,19 +228,19 @@ $SED -i s#'switch_to_keras:.*'#'switch_to_keras: True'# $acoustic_config_file
 if [ "$architecture" == "RNN" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['RNN']'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''RNN'\'']'# $acoustic_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: rnn_1'# $acoustic_config_file
 elif [ "$architecture" == "GRU" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['GRU']'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''GRU'\'']'# $acoustic_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: gru_1'# $acoustic_config_file
 elif [ "$architecture" == "LSTM" ]
 then
     $SED -i s#'hidden_layer_size  :.*'#'hidden_layer_size  : [512]'# $acoustic_config_file
-    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['LSTM']'# $acoustic_config_file
+    $SED -i s#'hidden_layer_type  :.*'#'hidden_layer_type  : ['\''LSTM'\'']'# $acoustic_config_file
     $SED -i s#'sequential_training :.*'#'sequential_training : True'# $acoustic_config_file
     $SED -i s#'model_file_name:.*'#'model_file_name: lstm_1'# $acoustic_config_file
 elif [ "$architecture" == "DNN" ]
