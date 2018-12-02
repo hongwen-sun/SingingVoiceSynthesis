@@ -23,6 +23,8 @@ Run script with options. For example, the commond below will train LSTMs with th
 ./run.sh -f -m LSTM
 ```
 
-### Edit score
+## Edit score
 The synthesizer generate samples according to a music score (placed in the working directory named "score"), which is basically a list of pitch-duration pairs at "syllabel level"
 
+## Demoes
+Demo samples could be found at demo_samples dir
