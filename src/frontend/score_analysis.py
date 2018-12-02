@@ -49,11 +49,6 @@ class ScoreAnalyzer():
         map[4] = int(FS/BPS/WS/1)
         map[8] = int(FS/BPS/WS/2)
         map[16]= int(FS/BPS/WS/4)
-        # map[1] = 100
-        # map[2] = 100
-        # map[4] = 100
-        # map[8] = 100
-        # map[16]= 100
         self.note_dmap = map
 
     def load_fmap_csv(self):
