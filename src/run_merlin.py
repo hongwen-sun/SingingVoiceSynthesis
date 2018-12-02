@@ -56,6 +56,7 @@ import numpy.distutils.__config__
 import theano
 
 from utils.providers import ListDataProvider
+from utils.data_augmentation import DataAugmentation
 
 from frontend.label_normalisation import HTSLabelNormalisation
 from frontend.silence_remover import SilenceRemover
@@ -413,6 +414,9 @@ def train_DNN(train_xy_file_list, valid_xy_file_list, \
 
 
 def dnn_generation(valid_file_list, nnets_file_name, n_ins, n_outs, out_file_list, reshape_io=False):
+    # print('ASDFLKASJDFKLSAJDFLKSAJDFK;LASDKLFSADKLFASKDLFSAD;KFASDFKSDFK')
+    # print(valid_file_list)
+    # print('ASDFLKASJDFKLSAJDFLKSAJDFK;LASDKLFSADKLFASKDLFSAD;KFASDFKSDFK')
     logger = logging.getLogger("dnn_generation")
     logger.debug('Starting dnn_generation')
 
@@ -608,6 +612,11 @@ def main_function(cfg):
     test_id_list = file_paths.test_id_list
 
     # Debug:----------------------------------
+
+
+
+
+
     if cfg.ACFTEXTR:
         logger.info('acoustic feature extraction')
         acous_feat_extraction(cfg.nat_wav_dir, file_id_list, cfg)
@@ -638,6 +647,20 @@ def main_function(cfg):
 
         remover = SilenceRemover(n_cmp = lab_dim, silence_pattern = cfg.silence_pattern, label_type=cfg.label_type, remove_frame_features = cfg.add_frame_features, subphone_feats = cfg.subphone_feats)
         remover.remove_silence(binary_label_file_list, in_label_align_file_list, nn_label_file_list)
+
+        DATAAUG = False
+
+        if DATAAUG:
+            data_augmentor = DataAugmentation(7, 9)
+            augmented_lab_file_list = data_augmentor.lab_augmentation(file_paths.nn_label_dir)
+            augmented_dur_file_list = data_augmentor.generate_dur_filename_list(augmented_lab_file_list)
+            cfg.train_file_number *= 17
+            nn_label_file_list = [os.path.join(file_paths.nn_label_dir, f) for f in augmented_lab_file_list]
+            nn_label_norm_file_list = [os.path.join(file_paths.nn_label_norm_dir, f) for f in augmented_lab_file_list]
+            file_paths.nn_label_file_list = [os.path.join(file_paths.nn_label_dir, f) for f in augmented_lab_file_list]
+            file_paths.nn_label_norm_file_list = [os.path.join(file_paths.nn_label_norm_dir, f) for f in augmented_lab_file_list]
+            file_paths.nn_cmp_norm_file_list = [os.path.join(file_paths.nn_cmp_norm_dir, f) for f in augmented_dur_file_list]
+
 
         min_max_normaliser = MinMaxNormalisation(feature_dimension = lab_dim, min_value = 0.01, max_value = 0.99)
 
@@ -787,6 +810,7 @@ def main_function(cfg):
     train_x_file_list, train_y_file_list = file_paths.get_train_list_x_y()
     valid_x_file_list, valid_y_file_list = file_paths.get_valid_list_x_y()
     test_x_file_list, test_y_file_list = file_paths.get_test_list_x_y()
+
 
     # we need to know the label dimension before training the DNN
     # computing that requires us to look at the labels
