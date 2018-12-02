@@ -48,12 +48,6 @@ import logging
 
 
 
-import sys
-print(sys.path)
-sys.path.insert(0, '/home/yongliang/third_party/merlin')
-
-
-
 numpy.set_printoptions(threshold=numpy.nan, linewidth=numpy.nan)
 
 
@@ -195,14 +189,7 @@ class   ParameterGeneration(object):
                 if feature_name == 'lf0' and meta is not None:
                     cur_ind = 60
                     for syllable in meta:
-                        # fn = dur_feat[syllable['start_ind']: syllable['end_ind']+1, :].sum()
-                        # orig_frame_number = sum(n[1] for n in syllable['notes'])
-                        # if fn != orig_frame_number:
-                        #     syllable['notes'][-1][1] -= orig_frame_number - fn
-                        # assert sum(n[1] for n in syllable['notes']) == fn
-                        # print(syllable)
                         for note in syllable['notes']:
-                            print(type(int(note[1])))
                             current_features[int(cur_ind): int(cur_ind)+int(note[1]), 0] = note[0]
                             cur_ind += note[1]
 
