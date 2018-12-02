@@ -42,8 +42,8 @@ echo "Step 2: synthesizing speech..."
 ./scripts/submit.sh ${MerlinDir}/src/run_merlin.py conf/test_dur_synth_${Voice}.conf
 ./scripts/submit.sh ${MerlinDir}/src/run_merlin.py conf/test_synth_${Voice}.conf
 
-#echo "deleting intermediate synthesis files..."
-#./scripts/remove_intermediate_files.sh $global_config_file
+echo "deleting intermediate synthesis files..."
+./scripts/remove_intermediate_files.sh $global_config_file
 
 echo "synthesized audio files are in: experiments/${Voice}/test_synthesis/wav"
 
