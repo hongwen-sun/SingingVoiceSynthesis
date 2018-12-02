@@ -1,14 +1,119 @@
+QS "Abs-Pitch_C-Not_C3"      {/E:C3]}
+QS "Abs-Pitch_C-Not_Db3"     {/E:Db3]}
+QS "Abs-Pitch_C-Not_D3"      {/E:D3]}
+QS "Abs-Pitch_C-Not_Eb3"     {/E:Eb3]}
+QS "Abs-Pitch_C-Not_E3"      {/E:E3]}
+QS "Abs-Pitch_C-Not_F3"      {/E:F3]}
+QS "Abs-Pitch_C-Not_Gb3"     {/E:Gb3]}
+QS "Abs-Pitch_C-Not_G3"      {/E:G3]}
+QS "Abs-Pitch_C-Not_Ab3"     {/E:Ab3]}
+QS "Abs-Pitch_C-Not_A3"      {/E:A3]}
+QS "Abs-Pitch_C-Not_Bb3"     {/E:Bb3]}
+QS "Abs-Pitch_C-Not_B3"      {/E:B3]}
+QS "Abs-Pitch_C-Not_C4"      {/E:C4]}
+QS "Abs-Pitch_C-Not_Db4"     {/E:Db4]}
+QS "Abs-Pitch_C-Not_D4"      {/E:D4]}
+QS "Abs-Pitch_C-Not_Eb4"     {/E:Eb4]}
+QS "Abs-Pitch_C-Not_E4"      {/E:E4]}
+QS "Abs-Pitch_C-Not_F4"      {/E:F4]}
+QS "Abs-Pitch_C-Not_Gb4"     {/E:Gb4]}
+QS "Abs-Pitch_C-Not_G4"      {/E:G4]}
+QS "Abs-Pitch_C-Not_Ab4"     {/E:Ab4]}
+QS "Abs-Pitch_C-Not_A4"      {/E:A4]}
+QS "Abs-Pitch_C-Not_Bb4"     {/E:Bb4]}
+QS "Abs-Pitch_C-Not_B4"      {/E:B4]}
+QS "Abs-Pitch_C-Not_C5"      {/E:C5]}
+QS "Abs-Pitch_C-Not_Db5"     {/E:Db5]}
+QS "Abs-Pitch_C-Not_D5"      {/E:D5]}
+QS "Abs-Pitch_C-Not_Eb5"     {/E:Eb5]}
+QS "Abs-Pitch_C-Not_E5"      {/E:E5]}
+QS "Abs-Pitch_C-Not_F5"      {/E:F5]}
+QS "Abs-Pitch_C-Not_Gb5"     {/E:Gb5]}
+QS "Abs-Pitch_C-Not_G5"      {/E:G5]}
+QS "Abs-Pitch_C-Not_Ab5"     {/E:Ab5]}
+QS "Abs-Pitch_C-Not_A5"      {/E:A5]}
+QS "Abs-Pitch_C-Not_Bb5"     {/E:Bb5]}
+QS "Abs-Pitch_C-Not_B5"      {/E:B5]}
+QS "Abs-Pitch_Prev-Not_C3"      {/D:C3!}
+QS "Abs-Pitch_Prev-Not_Db3"     {/D:Db3!}
+QS "Abs-Pitch_Prev-Not_D3"      {/D:D3!}
+QS "Abs-Pitch_Prev-Not_Eb3"     {/D:Eb3!}
+QS "Abs-Pitch_Prev-Not_E3"      {/D:E3!}
+QS "Abs-Pitch_Prev-Not_F3"      {/D:F3!}
+QS "Abs-Pitch_Prev-Not_Gb3"     {/D:Gb3!}
+QS "Abs-Pitch_Prev-Not_G3"      {/D:G3!}
+QS "Abs-Pitch_Prev-Not_Ab3"     {/D:Ab3!}
+QS "Abs-Pitch_Prev-Not_A3"      {/D:A3!}
+QS "Abs-Pitch_Prev-Not_Bb3"     {/D:Bb3!}
+QS "Abs-Pitch_Prev-Not_B3"      {/D:B3!}
+QS "Abs-Pitch_Prev-Not_C4"      {/D:C4!}
+QS "Abs-Pitch_Prev-Not_Db4"     {/D:Db4!}
+QS "Abs-Pitch_Prev-Not_D4"      {/D:D4!}
+QS "Abs-Pitch_Prev-Not_Eb4"     {/D:Eb4!}
+QS "Abs-Pitch_Prev-Not_E4"      {/D:E4!}
+QS "Abs-Pitch_Prev-Not_F4"      {/D:F4!}
+QS "Abs-Pitch_Prev-Not_Gb4"     {/D:Gb4!}
+QS "Abs-Pitch_Prev-Not_G4"      {/D:G4!}
+QS "Abs-Pitch_Prev-Not_Ab4"     {/D:Ab4!}
+QS "Abs-Pitch_Prev-Not_A4"      {/D:A4!}
+QS "Abs-Pitch_Prev-Not_Bb4"     {/D:Bb4!}
+QS "Abs-Pitch_Prev-Not_B4"      {/D:B4!}
+QS "Abs-Pitch_Prev-Not_C5"      {/D:C5!}
+QS "Abs-Pitch_Prev-Not_Db5"     {/D:Db5!}
+QS "Abs-Pitch_Prev-Not_D5"      {/D:D5!}
+QS "Abs-Pitch_Prev-Not_Eb5"     {/D:Eb5!}
+QS "Abs-Pitch_Prev-Not_E5"      {/D:E5!}
+QS "Abs-Pitch_Prev-Not_F5"      {/D:F5!}
+QS "Abs-Pitch_Prev-Not_Gb5"     {/D:Gb5!}
+QS "Abs-Pitch_Prev-Not_G5"      {/D:G5!}
+QS "Abs-Pitch_Prev-Not_Ab5"     {/D:Ab5!}
+QS "Abs-Pitch_Prev-Not_A5"      {/D:A5!}
+QS "Abs-Pitch_Prev-Not_Bb5"     {/D:Bb5!}
+QS "Abs-Pitch_Prev-Not_B5"      {/D:B5!}
+QS "Abs-Pitch_Next-Not_C3"      {/F:C3#}
+QS "Abs-Pitch_Next-Not_Db3"     {/F:Db3#}
+QS "Abs-Pitch_Next-Not_D3"      {/F:D3#}
+QS "Abs-Pitch_Next-Not_Eb3"     {/F:Eb3#}
+QS "Abs-Pitch_Next-Not_E3"      {/F:E3#}
+QS "Abs-Pitch_Next-Not_F3"      {/F:F3#}
+QS "Abs-Pitch_Next-Not_Gb3"     {/F:Gb3#}
+QS "Abs-Pitch_Next-Not_G3"      {/F:G3#}
+QS "Abs-Pitch_Next-Not_Ab3"     {/F:Ab3#}
+QS "Abs-Pitch_Next-Not_A3"      {/F:A3#}
+QS "Abs-Pitch_Next-Not_Bb3"     {/F:Bb3#}
+QS "Abs-Pitch_Next-Not_B3"      {/F:B3#}
+QS "Abs-Pitch_Next-Not_C4"      {/F:C4#}
+QS "Abs-Pitch_Next-Not_Db4"     {/F:Db4#}
+QS "Abs-Pitch_Next-Not_D4"      {/F:D4#}
+QS "Abs-Pitch_Next-Not_Eb4"     {/F:Eb4#}
+QS "Abs-Pitch_Next-Not_E4"      {/F:E4#}
+QS "Abs-Pitch_Next-Not_F4"      {/F:F4#}
+QS "Abs-Pitch_Next-Not_Gb4"     {/F:Gb4#}
+QS "Abs-Pitch_Next-Not_G4"      {/F:G4#}
+QS "Abs-Pitch_Next-Not_Ab4"     {/F:Ab4#}
+QS "Abs-Pitch_Next-Not_A4"      {/F:A4#}
+QS "Abs-Pitch_Next-Not_Bb4"     {/F:Bb4#}
+QS "Abs-Pitch_Next-Not_B4"      {/F:B4#}
+QS "Abs-Pitch_Next-Not_C5"      {/F:C5#}
+QS "Abs-Pitch_Next-Not_Db5"     {/F:Db5#}
+QS "Abs-Pitch_Next-Not_D5"      {/F:D5#}
+QS "Abs-Pitch_Next-Not_Eb5"     {/F:Eb5#}
+QS "Abs-Pitch_Next-Not_E5"      {/F:E5#}
+QS "Abs-Pitch_Next-Not_F5"      {/F:F5#}
+QS "Abs-Pitch_Next-Not_Gb5"     {/F:Gb5#}
+QS "Abs-Pitch_Next-Not_G5"      {/F:G5#}
+QS "Abs-Pitch_Next-Not_Ab5"     {/F:Ab5#}
+QS "Abs-Pitch_Next-Not_A5"      {/F:A5#}
+QS "Abs-Pitch_Next-Not_Bb5"     {/F:Bb5#}
+QS "Abs-Pitch_Next-Not_B5"      {/F:B5#}
 QS "C-Phone_Yuuseion" {-v+,-b+,-by+,-m+,-my+,-w+,-z+,-j+,-d+,-dy+,-n+,-ny+,-N+,-r+,-ry+,-g+,-gy+,-y+}
 QS "C-Phone_Museion"  {-f+,-p+,-py+,-s+,-sh+,-ts+,-ch+,-t+,-ty+,-k+,-ky+,-h+,-hy+}
 QS "C-Phone_Muon"     {-pau+,-sil+}
-
 QS "C-Phone_Yuusei_Boin"           {-a+,-i+,-u+,-e+,-o+}
 QS "C-Phone_Yuusei_Maejita_Boin"   {-i+,-e+}
 QS "C-Phone_Yuusei_Atojita_Boin"   {-a+,-u+,-o+}
 QS "C-Phone_Yuusei_Sema_Boin"      {-i+,-u+}
 QS "C-Phone_Yuusei_Han_Sema_Boin"  {-e+,-o+}
-
-
 QS "C-Phone_Yuusei_Shiin" {-v+,-b+,-by+,-m+,-my+,-w+,-z+,-j+,-d+,-dy+,-n+,-ny+,-N+,-r+,-ry+,-g+,-gy+,-y+}
 QS "C-Phone_Musei_Shiin"  {-f+,-p+,-py+,-s+,-sh+,-ts+,-ch+,-t+,-ty+,-k+,-ky+,-h+,-hy+}
 QS "C-Phone_Kuchibiruon"  {-v+,-b+,-by+,-m+,-my+,-w+,-f+,-p+,-py+}
@@ -20,7 +125,6 @@ QS "C-Phone_Hasatsuon"    {-ts+,-ch+}
 QS "C-Phone_Haretsuon"    {-b+,-by+,-d+,-dy+,-g+,-gy+,-p+,-py+,-t+,-ty+,-k+,-ky+}
 QS "C-Phone_Bion"         {-m+,-my+,-n+,-ny+,-N+}
 QS "C-Phone_Han_Boin"     {-w+,-r+,-ry+,-y+}
-
 QS "C-Phone_Yuusei_Kuchibiru_Haretsuon" {-b+,-by+}
 QS "C-Phone_Yuusei_Kuchibiru_Bion"      {-m+,-my+}
 QS "C-Phone_Yuusei_Haguki_Masatsuon"    {-z+,-j+}
@@ -34,9 +138,7 @@ QS "C-Phone_Musei_Haguki_Hasatsuon"     {-ts+,-ch+}
 QS "C-Phone_Musei_Haguki_Haretsuon"     {-t+,-ty+}
 QS "C-Phone_Musei_Kougai_Haretsuon"     {-k+,-ky+}
 QS "C-Phone_Musei_Seimon_Masatsuon"     {-h+,-hy+}
-
 QS "C-Phone_Youon" {-by+,-my+,-j+,-dy+,-ny+,-ry+,-gy+,-py+,-sh+,-ch+,-ty+,-ky+,-hy+}
-
 QS "C-Phone_N"   {-N+}
 QS "C-Phone_a"   {-a+}
 QS "C-Phone_b"   {-b+}
@@ -76,28 +178,19 @@ QS "C-Phone_v"   {-v+}
 QS "C-Phone_w"   {-w+}
 QS "C-Phone_y"   {-y+}
 QS "C-Phone_z"   {-z+}
-
 QS "C-Phone_Silent"   {s@}
 QS "C-Phone_Pause"    {p@}
 QS "C-Phone_Vowel"    {v@}
 QS "C-Phone_Consonant"{c@}
 QS "C-Phone_Break"    {b@}
-
-
-
-
-
 QS "L-Phone_Yuuseion" {^v-,^b-,^by-,^m-,^my-,^w-,^z-,^j-,^d-,^dy-,^n-,^ny-,^N-,^r-,^ry-,^g-,^gy-,^y-}
 QS "L-Phone_Museion"  {^f-,^p-,^py-,^s-,^sh-,^ts-,^ch-,^t-,^ty-,^k-,^ky-,^h-,^hy-}
 QS "L-Phone_Muon"     {^pau-,^sil-}
-
 QS "L-Phone_Yuusei_Boin"           {^a-,^i-,^u-,^e-,^o-}
 QS "L-Phone_Yuusei_Maejita_Boin"   {^i-,^e-}
 QS "L-Phone_Yuusei_Atojita_Boin"   {^a-,^u-,^o-}
 QS "L-Phone_Yuusei_Sema_Boin"      {^i-,^u-}
 QS "L-Phone_Yuusei_Han_Sema_Boin"  {^e-,^o-}
-
-
 QS "L-Phone_Yuusei_Shiin" {^v-,^b-,^by-,^m-,^my-,^w-,^z-,^j-,^d-,^dy-,^n-,^ny-,^N-,^r-,^ry-,^g-,^gy-,^y-}
 QS "L-Phone_Musei_Shiin"  {^f-,^p-,^py-,^s-,^sh-,^ts-,^ch-,^t-,^ty-,^k-,^ky-,^h-,^hy-}
 QS "L-Phone_Kuchibiruon"  {^v-,^b-,^by-,^m-,^my-,^w-,^f-,^p-,^py-}
@@ -109,7 +202,6 @@ QS "L-Phone_Hasatsuon"    {^ts-,^ch-}
 QS "L-Phone_Haretsuon"    {^b-,^by-,^d-,^dy-,^g-,^gy-,^p-,^py-,^t-,^ty-,^k-,^ky-}
 QS "L-Phone_Bion"         {^m-,^my-,^n-,^ny-,^N-}
 QS "L-Phone_Han_Boin"     {^w-,^r-,^ry-,^y-}
-
 QS "L-Phone_Yuusei_Kuchibiru_Haretsuon" {^b-,^by-}
 QS "L-Phone_Yuusei_Kuchibiru_Bion"      {^m-,^my-}
 QS "L-Phone_Yuusei_Haguki_Masatsuon"    {^z-,^j-}
@@ -123,9 +215,7 @@ QS "L-Phone_Musei_Haguki_Hasatsuon"     {^ts-,^ch-}
 QS "L-Phone_Musei_Haguki_Haretsuon"     {^t-,^ty-}
 QS "L-Phone_Musei_Kougai_Haretsuon"     {^k-,^ky-}
 QS "L-Phone_Musei_Seimon_Masatsuon"     {^h-,^hy-}
-
 QS "L-Phone_Youon" {^by-,^my-,^j-,^dy-,^ny-,^ry-,^gy-,^py-,^sh-,^ch-,^ty-,^ky-,^hy-}
-
 QS "L-Phone_N"   {^N-}
 QS "L-Phone_a"   {^a-}
 QS "L-Phone_b"   {^b-}
@@ -165,23 +255,14 @@ QS "L-Phone_v"   {^v-}
 QS "L-Phone_w"   {^w-}
 QS "L-Phone_y"   {^y-}
 QS "L-Phone_z"   {^z-}
-
-
-
-
-
-
 QS "R-Phone_Yuuseion" {+v=,+b=,+by=,+m=,+my=,+w=,+z=,+j=,+d=,+dy=,+n=,+ny=,+N=,+r=,+ry=,+g=,+gy=,+y=}
 QS "R-Phone_Museion"  {+f=,+p=,+py=,+s=,+sh=,+ts=,+ch=,+t=,+ty=,+k=,+ky=,+h=,+hy=}
 QS "R-Phone_Muon"     {+pau=,+sil=}
-
 QS "R-Phone_Yuusei_Boin"           {+a=,+i=,+u=,+e=,+o=}
 QS "R-Phone_Yuusei_Maejita_Boin"   {+i=,+e=}
 QS "R-Phone_Yuusei_Atojita_Boin"   {+a=,+u=,+o=}
 QS "R-Phone_Yuusei_Sema_Boin"      {+i=,+u=}
 QS "R-Phone_Yuusei_Han_Sema_Boin"  {+e=,+o=}
-
-
 QS "R-Phone_Yuusei_Shiin" {+v=,+b=,+by=,+m=,+my=,+w=,+z=,+j=,+d=,+dy=,+n=,+ny=,+N=,+r=,+ry=,+g=,+gy=,+y=}
 QS "R-Phone_Musei_Shiin"  {+f=,+p=,+py=,+s=,+sh=,+ts=,+ch=,+t=,+ty=,+k=,+ky=,+h=,+hy=}
 QS "R-Phone_Kuchibiruon"  {+v=,+b=,+by=,+m=,+my=,+w=,+f=,+p=,+py=}
@@ -193,7 +274,6 @@ QS "R-Phone_Hasatsuon"    {+ts=,+ch=}
 QS "R-Phone_Haretsuon"    {+b=,+by=,+d=,+dy=,+g=,+gy=,+p=,+py=,+t=,+ty=,+k=,+ky=}
 QS "R-Phone_Bion"         {+m=,+my=,+n=,+ny=,+N=}
 QS "R-Phone_Han_Boin"     {+w=,+r=,+ry=,+y=}
-
 QS "R-Phone_Yuusei_Kuchibiru_Haretsuon" {+b=,+by=}
 QS "R-Phone_Yuusei_Kuchibiru_Bion"      {+m=,+my=}
 QS "R-Phone_Yuusei_Haguki_Masatsuon"    {+z=,+j=}
@@ -207,9 +287,7 @@ QS "R-Phone_Musei_Haguki_Hasatsuon"     {+ts=,+ch=}
 QS "R-Phone_Musei_Haguki_Haretsuon"     {+t=,+ty=}
 QS "R-Phone_Musei_Kougai_Haretsuon"     {+k=,+ky=}
 QS "R-Phone_Musei_Seimon_Masatsuon"     {+h=,+hy=}
-
 QS "R-Phone_Youon" {+by=,+my=,+j=,+dy=,+ny=,+ry=,+gy=,+py=,+sh=,+ch=,+ty=,+ky=,+hy=}
-
 QS "R-Phone_N"   {+N=}
 QS "R-Phone_a"   {+a=}
 QS "R-Phone_b"   {+b=}
@@ -249,185 +327,29 @@ QS "R-Phone_v"   {+v=}
 QS "R-Phone_w"   {+w=}
 QS "R-Phone_y"   {+y=}
 QS "R-Phone_z"   {+z=}
-
-
-
-
-
 CQS "Pos_C-Phone_in_Syl(Fw)"   {-(\d+)!}
 CQS "Pos_C-Phone_in_Syl(Bw)"   {!(\d+)]}
-
 CQS "Num-Phone_in_prev-Syl"    {/A:(\d+)-}
 CQS "Pos-prev-Syl_in-Not(Fw)"    {-(\d+)-}
 CQS "Pos-prev-Syl_in-Not(Bw)"    {-(\d+)@}
-
-
 CQS "Num-Phone_in_C-Syl"    {/B:(\d+)_}
 CQS "Pos-C-Syl_in-Not(Fw)"    {_(\d+)_}
 CQS "Pos-C-Syl_in-Not(Bw)"    {_(\d+)@}
-
-
 CQS "Num-Phone_in_next-Syl"    {/C:(\d+)+}
 CQS "Pos-next-Syl_in-Not(Fw)"    {+(\d+)+}
 CQS "Pos-next-Syl_in-Not(Bw)"    {+(\d+)@}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-QS "Abs-Pitch_Prev-Not_C3"      {/D:C3!}
-QS "Abs-Pitch_Prev-Not_Db3"     {/D:Db3!}
-QS "Abs-Pitch_Prev-Not_D3"      {/D:D3!}
-QS "Abs-Pitch_Prev-Not_Eb3"     {/D:Eb3!}
-QS "Abs-Pitch_Prev-Not_E3"      {/D:E3!}
-QS "Abs-Pitch_Prev-Not_F3"      {/D:F3!}
-QS "Abs-Pitch_Prev-Not_Gb3"     {/D:Gb3!}
-QS "Abs-Pitch_Prev-Not_G3"      {/D:G3!}
-QS "Abs-Pitch_Prev-Not_Ab3"     {/D:Ab3!}
-QS "Abs-Pitch_Prev-Not_A3"      {/D:A3!}
-QS "Abs-Pitch_Prev-Not_Bb3"     {/D:Bb3!}
-QS "Abs-Pitch_Prev-Not_B3"      {/D:B3!}
-
-QS "Abs-Pitch_Prev-Not_C4"      {/D:C4!}
-QS "Abs-Pitch_Prev-Not_Db4"     {/D:Db4!}
-QS "Abs-Pitch_Prev-Not_D4"      {/D:D4!}
-QS "Abs-Pitch_Prev-Not_Eb4"     {/D:Eb4!}
-QS "Abs-Pitch_Prev-Not_E4"      {/D:E4!}
-QS "Abs-Pitch_Prev-Not_F4"      {/D:F4!}
-QS "Abs-Pitch_Prev-Not_Gb4"     {/D:Gb4!}
-QS "Abs-Pitch_Prev-Not_G4"      {/D:G4!}
-QS "Abs-Pitch_Prev-Not_Ab4"     {/D:Ab4!}
-QS "Abs-Pitch_Prev-Not_A4"      {/D:A4!}
-QS "Abs-Pitch_Prev-Not_Bb4"     {/D:Bb4!}
-QS "Abs-Pitch_Prev-Not_B4"      {/D:B4!}
-
-QS "Abs-Pitch_Prev-Not_C5"      {/D:C5!}
-QS "Abs-Pitch_Prev-Not_Db5"     {/D:Db5!}
-QS "Abs-Pitch_Prev-Not_D5"      {/D:D5!}
-QS "Abs-Pitch_Prev-Not_Eb5"     {/D:Eb5!}
-QS "Abs-Pitch_Prev-Not_E5"      {/D:E5!}
-QS "Abs-Pitch_Prev-Not_F5"      {/D:F5!}
-QS "Abs-Pitch_Prev-Not_Gb5"     {/D:Gb5!}
-QS "Abs-Pitch_Prev-Not_G5"      {/D:G5!}
-QS "Abs-Pitch_Prev-Not_Ab5"     {/D:Ab5!}
-QS "Abs-Pitch_Prev-Not_A5"      {/D:A5!}
-QS "Abs-Pitch_Prev-Not_Bb5"     {/D:Bb5!}
-QS "Abs-Pitch_Prev-Not_B5"      {/D:B5!}
-
 CQS "Rela-Pitch_Prev-Not"           {!(\d+)#}
-CQS "Key_Prev-Not"                  {#(\d+)$}
 CQS "Len_Prev-Not_by_Syl"           {|(\d+)&}
 CQS "Len_Prev-Not_by_0.01sec"       {&(\d+);}
 CQS "Len_Prev-Not_by_1/3-32nd-Not"  {;(\d+)-}
-
-
-
-
-QS "Abs-Pitch_Next-Not_C3"      {/F:C3#}
-QS "Abs-Pitch_Next-Not_Db3"     {/F:Db3#}
-QS "Abs-Pitch_Next-Not_D3"      {/F:D3#}
-QS "Abs-Pitch_Next-Not_Eb3"     {/F:Eb3#}
-QS "Abs-Pitch_Next-Not_E3"      {/F:E3#}
-QS "Abs-Pitch_Next-Not_F3"      {/F:F3#}
-QS "Abs-Pitch_Next-Not_Gb3"     {/F:Gb3#}
-QS "Abs-Pitch_Next-Not_G3"      {/F:G3#}
-QS "Abs-Pitch_Next-Not_Ab3"     {/F:Ab3#}
-QS "Abs-Pitch_Next-Not_A3"      {/F:A3#}
-QS "Abs-Pitch_Next-Not_Bb3"     {/F:Bb3#}
-QS "Abs-Pitch_Next-Not_B3"      {/F:B3#}
-
-QS "Abs-Pitch_Next-Not_C4"      {/F:C4#}
-QS "Abs-Pitch_Next-Not_Db4"     {/F:Db4#}
-QS "Abs-Pitch_Next-Not_D4"      {/F:D4#}
-QS "Abs-Pitch_Next-Not_Eb4"     {/F:Eb4#}
-QS "Abs-Pitch_Next-Not_E4"      {/F:E4#}
-QS "Abs-Pitch_Next-Not_F4"      {/F:F4#}
-QS "Abs-Pitch_Next-Not_Gb4"     {/F:Gb4#}
-QS "Abs-Pitch_Next-Not_G4"      {/F:G4#}
-QS "Abs-Pitch_Next-Not_Ab4"     {/F:Ab4#}
-QS "Abs-Pitch_Next-Not_A4"      {/F:A4#}
-QS "Abs-Pitch_Next-Not_Bb4"     {/F:Bb4#}
-QS "Abs-Pitch_Next-Not_B4"      {/F:B4#}
-
-QS "Abs-Pitch_Next-Not_C5"      {/F:C5#}
-QS "Abs-Pitch_Next-Not_Db5"     {/F:Db5#}
-QS "Abs-Pitch_Next-Not_D5"      {/F:D5#}
-QS "Abs-Pitch_Next-Not_Eb5"     {/F:Eb5#}
-QS "Abs-Pitch_Next-Not_E5"      {/F:E5#}
-QS "Abs-Pitch_Next-Not_F5"      {/F:F5#}
-QS "Abs-Pitch_Next-Not_Gb5"     {/F:Gb5#}
-QS "Abs-Pitch_Next-Not_G5"      {/F:G5#}
-QS "Abs-Pitch_Next-Not_Ab5"     {/F:Ab5#}
-QS "Abs-Pitch_Next-Not_A5"      {/F:A5#}
-QS "Abs-Pitch_Next-Not_Bb5"     {/F:Bb5#}
-QS "Abs-Pitch_Next-Not_B5"      {/F:B5#}
-
 CQS "Rela-Pitch_Next-Not"           {#(\d+)#}
-CQS "Key_Next-Not"                  {#(\d+)-}
 CQS "Len_Next-Not_by_Syl"           {$(\d+)+}
 CQS "Len_Next-Not_by_0.01sec"       {+(\d+)%}
 CQS "Len_Next-Not_by_1/3-32nd-Not"  {%(\d+);}
-
-
-
-
-QS "Abs-Pitch_C-Not_C3"      {/E:C3]}
-QS "Abs-Pitch_C-Not_Db3"     {/E:Db3]}
-QS "Abs-Pitch_C-Not_D3"      {/E:D3]}
-QS "Abs-Pitch_C-Not_Eb3"     {/E:Eb3]}
-QS "Abs-Pitch_C-Not_E3"      {/E:E3]}
-QS "Abs-Pitch_C-Not_F3"      {/E:F3]}
-QS "Abs-Pitch_C-Not_Gb3"     {/E:Gb3]}
-QS "Abs-Pitch_C-Not_G3"      {/E:G3]}
-QS "Abs-Pitch_C-Not_Ab3"     {/E:Ab3]}
-QS "Abs-Pitch_C-Not_A3"      {/E:A3]}
-QS "Abs-Pitch_C-Not_Bb3"     {/E:Bb3]}
-QS "Abs-Pitch_C-Not_B3"      {/E:B3]}
-
-QS "Abs-Pitch_C-Not_C4"      {/E:C4]}
-QS "Abs-Pitch_C-Not_Db4"     {/E:Db4]}
-QS "Abs-Pitch_C-Not_D4"      {/E:D4]}
-QS "Abs-Pitch_C-Not_Eb4"     {/E:Eb4]}
-QS "Abs-Pitch_C-Not_E4"      {/E:E4]}
-QS "Abs-Pitch_C-Not_F4"      {/E:F4]}
-QS "Abs-Pitch_C-Not_Gb4"     {/E:Gb4]}
-QS "Abs-Pitch_C-Not_G4"      {/E:G4]}
-QS "Abs-Pitch_C-Not_Ab4"     {/E:Ab4]}
-QS "Abs-Pitch_C-Not_A4"      {/E:A4]}
-QS "Abs-Pitch_C-Not_Bb4"     {/E:Bb4]}
-QS "Abs-Pitch_C-Not_B4"      {/E:B4]}
-
-QS "Abs-Pitch_C-Not_C5"      {/E:C5]}
-QS "Abs-Pitch_C-Not_Db5"     {/E:Db5]}
-QS "Abs-Pitch_C-Not_D5"      {/E:D5]}
-QS "Abs-Pitch_C-Not_Eb5"     {/E:Eb5]}
-QS "Abs-Pitch_C-Not_E5"      {/E:E5]}
-QS "Abs-Pitch_C-Not_F5"      {/E:F5]}
-QS "Abs-Pitch_C-Not_Gb5"     {/E:Gb5]}
-QS "Abs-Pitch_C-Not_G5"      {/E:G5]}
-QS "Abs-Pitch_C-Not_Ab5"     {/E:Ab5]}
-QS "Abs-Pitch_C-Not_A5"      {/E:A5]}
-QS "Abs-Pitch_C-Not_Bb5"     {/E:Bb5]}
-QS "Abs-Pitch_C-Not_B5"      {/E:B5]}
-
 CQS "Rela-Pitch_C-Not"           {](\d+)^}
-CQS "Key_C-Not"                  {^(\d+)=}
 CQS "Len_C-Not_by_Syl"           {!(\d+)@}
 CQS "Len_C-Not_by_0.01sec"       {@(\d+)#}
 CQS "Len_C-Not_by_1/3-32nd-Not"  {#(\d+)+}
-
-
 CQS "Pos_C-Not_in_C-Meas_by_Not(Fw)"            {](\d+)$}
 CQS "Pos_C-Not_in_C-Meas_by_Not(Bw)"            {$(\d+)|}
 CQS "Pos_C-Not_in_C-Meas_by_0.01sec(Fw)"        {|(\d+)[}
@@ -436,8 +358,6 @@ CQS "Pos_C-Not_in_C-Meas_by_1/3-32nd-Not(Fw)"   {$(\d+)]}
 CQS "Pos_C-Not_in_C-Meas_by_1/3-32nd-Not(Bw)"   {](\d+)=}
 CQS "Pos_C-Not_in_C-Meas_by_%(Fw)"              {=(\d+)^}
 CQS "Pos_C-Not_in_C-Meas_by_%(Bw)"              {^(\d+)~}
-
-
 CQS "Pos_C-Not_in_C-Phras_by_Not(Fw)"           {~(\d+)#}
 CQS "Pos_C-Not_in_C-Phras_by_Not(Bw)"           {#(\d+)_}
 CQS "Pos_C-Not_in_C-Phras_by_0.01sec(Fw)"       {_(\d+);}
@@ -446,4 +366,3 @@ CQS "Pos_C-Not_in_C-Phras_by_1/3-32nd-Not(Fw)"  {$(\d+)&}
 CQS "Pos_C-Not_in_C-Phras_by_1/3-32nd-Not(Bw)"  {&(\d+)%}
 CQS "Pos_C-Not_in_C-Phras_by_%(Fw)"             {%(\d+)[}
 CQS "Pos_C-Not_in_C-Phras_by_%(Bw)"             {[(\d+)|}
-
